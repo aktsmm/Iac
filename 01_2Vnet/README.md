@@ -13,7 +13,7 @@ Vnet間をつなげるには 別途VnetPeeringなり、VPNが必要。
 
 大体のリソース名はパラメーターファイルで変えられます。
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
-
+## Deploy to Azure
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json)
 
 
@@ -30,8 +30,6 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
-    adminUsername: adminUsername
-    adminPassword: adminPassword
     osDiskStorageType: 'StandardSSD_LRS'
 
 ## パラメーター
