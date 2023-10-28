@@ -1,22 +1,20 @@
-## 01_2Vnet： ふたつのVnetをつかう検証環境のベース環境デプロ
+## 01_2Vnet： 2つのVnetをつかう検証用に作りました
 
 bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json) するためにARM-Template(Json)にコンパイルしました。
 
 
-ざっくりというと 独立した Vnet を2つ作ります。
+ざっくりというと、、、
++ 独立した Vnet を2つ作ります。
++ それぞれにWindowsとUbuntuがデプロイされます。
++ Vnet 間はつながってません。
++ Vnet間をつなげるには 別途VnetPeeringなり、VPNが必要。
 
-
-それぞれにWindowsとUbuntuがデプロイされます。
+大体のリソース名はパラメーターファイルで変えられます。
+Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 
 イメージ図はこんな感じ。
 ![image](https://github.com/aktsmm/Iac/assets/71251920/be8b2d22-f031-4076-9c0c-8b8ca5e5e215)
 
-学習・検証環境のベース環境デプロイ用に作りました。
-Vnet 間はつながってません。
-Vnet間をつなげるには 別途VnetPeeringなり、VPNが必要。
-
-大体のリソース名はパラメーターファイルで変えられます。
-Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 ## Deploy to Azure
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json)
 
