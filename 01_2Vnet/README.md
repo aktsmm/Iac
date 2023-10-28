@@ -1,9 +1,10 @@
-## 01_2Vnet： 検証環境のベース環境デプロイ用に作りました。
+## 01_2Vnet： ふたつのVnetをつかう検証環境のベース環境デプロ
 
 bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json) するためにARM-Template(Json)にコンパイルしました。
 
 
 ざっくりというと 独立した Vnet を2つ作ります。
+
 
 それぞれにWindowsとUbuntuがデプロイされます。
 
