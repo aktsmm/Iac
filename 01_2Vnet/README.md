@@ -1,4 +1,4 @@
-## 01_2Vnet： 2つのVnetをつかう検証用に作りました
+## 01_2Vnet： 2つの Vnet をつかう検証環境作成用に作りました
 
 bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json) するためにARM-Template(Json)にコンパイルしました。
 
@@ -8,6 +8,7 @@ bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Mic
 + それぞれにWindowsとUbuntuがデプロイされます。
 + Vnet 間はつながってません。
 + Vnet間をつなげるには 別途VnetPeeringなり、VPNが必要。
+
 
 大体のリソース名はパラメーターファイルで変えられます。
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
