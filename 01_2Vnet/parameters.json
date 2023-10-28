@@ -2,9 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminPassword": {
-      "value": "**********任意のパスワードを指定**************"
-    },
     "location": {
       "value": "Japan East"
     },
@@ -17,29 +14,26 @@
     "subnetAName": {
       "value": "A-default-subnet"
     },
-    "nsgNameA": {
+    "nsgAName": {
       "value": "NSG-A"
     },
-    "nsgNameB": {
+    "nsgBName": {
       "value": "NSG-B"
     },
     "subnetAAddressPrefix": {
       "value": "10.0.1.0/24"
     },
-    "vmUbuntuHubName": {
+    "vmAUbuntuName": {
       "value": "VM-Ubuntu-Hub"
     },
-    "vmWin2019Name": {
+    "vmBWin2019Name": {
       "value": "VM-Win2019-Onp"
     },
-    "vmSize": {
-      "value": "Standard_B2ms"
-    },
     "adminUsername": {
-      "value": "adminuser"
+      "value": "test-admin"
     },
-    "osDiskStorageType": {
-      "value": "StandardSSD_LRS"
+    "adminPassword": {
+      "value": "!qazxsw21478520"
     },
     "vnetBName": {
       "value": "Vnet-B"

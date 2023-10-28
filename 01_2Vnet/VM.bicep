@@ -1,9 +1,14 @@
-param location string
+param location string = resourceGroup().location
 param vmName string
 param vmSize string
 param adminUsername string
+param osImageOffer string 
+param osImagePublisher string 
+param osImageSku string 
+@secure()
 param adminPassword string
-param osDiskStorageType string
+param osDiskStorageType string 
+param osdiskname string = '${vmName}-osdisk' // 文字列補間を使用して、VM名をosdisknameに指定しています
 param subnetId string
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
@@ -17,6 +22,9 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-08-01' = {
   name: '${vmName}-NIC'
   location: location
+  dependsOn: [
+    publicIP
+  ]
   properties: {
     ipConfigurations: [
       {
@@ -38,13 +46,12 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-08-01' = {
 resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   name: vmName
   location: location
-  sku: {
-    name: vmSize
-    tier: 'Standard'
-  }
+  dependsOn: [
+    networkInterface
+  ]
   properties: {
     hardwareProfile: {
-      vmSize: vmSize
+      vmSize: vmSize // ここにVMサイズを指定
     }
     osProfile: {
       computerName: vmName
@@ -54,10 +61,16 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
     storageProfile: {
       osDisk: {
         createOption: 'FromImage'
-        name: 'osdisk'
+        name: osdiskname
         managedDisk: {
           storageAccountType: osDiskStorageType
         }
+      }
+      imageReference: {
+        publisher: osImagePublisher
+        offer: osImageOffer
+        sku: osImageSku
+        version: 'latest'
       }
     }
     networkProfile: {
