@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.22.6.54827",
-      "templateHash": "7821212048867463847"
+      "templateHash": "4105692563498931795"
     }
   },
   "parameters": {
@@ -24,22 +24,7 @@
     "subnetAAddressPrefix": {
       "type": "string"
     },
-    "vmUbuntuHubName": {
-      "type": "string"
-    },
-    "vmWin2019Name": {
-      "type": "string"
-    },
-    "vmSize": {
-      "type": "string"
-    },
-    "adminUsername": {
-      "type": "string"
-    },
-    "adminPassword": {
-      "type": "securestring"
-    },
-    "osDiskStorageType": {
+    "nsgAName": {
       "type": "string"
     },
     "vnetBName": {
@@ -54,11 +39,20 @@
     "subnetBAddressPrefix": {
       "type": "string"
     },
-    "nsgNameA": {
+    "nsgBName": {
       "type": "string"
     },
-    "nsgNameB": {
+    "vmAUbuntuName": {
       "type": "string"
+    },
+    "vmBWin2019Name": {
+      "type": "string"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
     }
   },
   "resources": [
@@ -73,7 +67,7 @@
         "mode": "Incremental",
         "parameters": {
           "nsgName": {
-            "value": "[parameters('nsgNameA')]"
+            "value": "[parameters('nsgAName')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -177,7 +171,7 @@
         "mode": "Incremental",
         "parameters": {
           "nsgName": {
-            "value": "[parameters('nsgNameB')]"
+            "value": "[parameters('nsgBName')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -284,10 +278,10 @@
             "value": "[parameters('location')]"
           },
           "vmName": {
-            "value": "[parameters('vmUbuntuHubName')]"
+            "value": "[parameters('vmAUbuntuName')]"
           },
           "vmSize": {
-            "value": "[parameters('vmSize')]"
+            "value": "Standard_B2ms"
           },
           "osImageOffer": {
             "value": "0001-com-ubuntu-minimal-focal"
@@ -305,7 +299,7 @@
             "value": "[parameters('adminPassword')]"
           },
           "osDiskStorageType": {
-            "value": "[parameters('osDiskStorageType')]"
+            "value": "StandardSSD_LRS"
           },
           "subnetId": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleA'), '2022-09-01').outputs.subnetId.value]"
@@ -455,10 +449,10 @@
             "value": "[parameters('location')]"
           },
           "vmName": {
-            "value": "[parameters('vmWin2019Name')]"
+            "value": "[parameters('vmBWin2019Name')]"
           },
           "vmSize": {
-            "value": "[parameters('vmSize')]"
+            "value": "Standard_B2ms"
           },
           "osImageOffer": {
             "value": "WindowsServer"
@@ -476,7 +470,7 @@
             "value": "[parameters('adminPassword')]"
           },
           "osDiskStorageType": {
-            "value": "[parameters('osDiskStorageType')]"
+            "value": "StandardSSD_LRS"
           },
           "subnetId": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleB'), '2022-09-01').outputs.subnetId.value]"
