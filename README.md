@@ -16,6 +16,5 @@ Vnet 間はつながってません。
 リソース名はパラメーターファイルで変えられます。
 PIPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 
-
-
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com)
 
