@@ -30,10 +30,10 @@
       "value": "VM-Win2019-Onp"
     },
     "adminUsername": {
-      "value": "test-admin"
+      "value": "azureuser"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "XXXXXXXXXXXXX"
     },
     "vnetBName": {
       "value": "Vnet-B"
