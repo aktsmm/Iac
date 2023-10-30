@@ -23,16 +23,19 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 Bastion入ってるのでデプロイに時間がかかります
 ![2023-10-31_02h03_39](https://github.com/aktsmm/Iac/assets/71251920/04bff503-e773-4ceb-a64f-12dd17fb68bd)
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json) 
 
 
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
-https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
++ https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
+Gitに上げてるjsonファイルを使うときは、rawでURLをとってURLを変換する必要がある、下記で変換してリンクをつくる
 
 ```PowerShell
 $url = "https://raw.githubusercontent.com/aktsmm/Iac/main/03_bas-peer/main.json"
 [uri]::EscapeDataString($url)
 $: https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json
 ```
-
+```
+https://portal.azure.com/#create/Microsoft.Template/uri/**https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json**
+```
