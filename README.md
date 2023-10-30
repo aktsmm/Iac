@@ -1,24 +1,36 @@
 # Iac
-しばらくbicep とARM-template(json) メイン
+しばらくbicep とARM-template(json) メインに基本的に自分用
++ 使用は自己責任でお願いします
 
-使用は自己責任で
 
-
-## 01_2Vnet-2VM： 検証環境のベース環境デプロイ用に作りました。
+## 01_2Vnet-2VM： 2つの Vnet をつかうシンプルな検証環境作成用に
 
 独立した Vnet を2つ、またVMを2つ作ります。
 イメージ図はこんな感じ。(Azure のリソースVisualizer機能)
+Vnet 間はつながってません。別途VnetPeeringなり、S2SVPNが必要。
+Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 ![image](https://github.com/aktsmm/Iac/assets/71251920/ede6ff89-770a-4992-a660-b4ea40f47894)
 
-
-
-学習検証環境のベース環境デプロイ用に作りました。
-Vnet 間はつながってません。別途VnetPeeringなり、S2SVPNが必要。
-リソース名はパラメーターファイルで変えられます。
-Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
-
-
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
-## Deploy to Azure Bottun の作り方
+
+## 02_2Vnet-3VM： 2つの Vnet をつかうシンプルな検証環境作成用に
+↑にWindows VMを1つ増やしました
+![2023-10-31_02h23_14](https://github.com/aktsmm/Iac/assets/71251920/f2fc56e0-1933-4b7d-b44c-574f4dbef4f7)
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) 
+
+## 03_bas-peer:  2Vnet、3VM 、加えてVnet Peering、Azure Bastion
+Bastion入ってるのでデプロイに時間がかかります
+![2023-10-31_02h03_39](https://github.com/aktsmm/Iac/assets/71251920/04bff503-e773-4ceb-a64f-12dd17fb68bd)
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+```
+
+## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
 https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
+
+```PowerShell```
+$url = "https://raw.githubusercontent.com/aktsmm/Iac/main/03_bas-peer/main.json"
+[uri]::EscapeDataString($url)
+$: https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json
