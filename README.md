@@ -37,5 +37,13 @@ $url = "https://raw.githubusercontent.com/aktsmm/Iac/main/03_bas-peer/main.json"
 $: https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json
 ```
 ```
-https://portal.azure.com/#create/Microsoft.Template/uri/**https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json**
+https://portal.azure.com/#create/Microsoft.Template/uri/<上記で取得したエンコードしたURL文字列>
 ```
+でリンクをつくります。
+
++ マークダウンで書くときはこんな感じでよくある **[Deploy to Azure] ボタン**ができる。
+```
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+``````
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
