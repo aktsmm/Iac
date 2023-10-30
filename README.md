@@ -1,5 +1,5 @@
 # Iac
-しばらくbicep とARM-template(json) メインに基本的に自分用
+しばらくbicep とARM-template(json) メインに基本的に自分用　
 + 使用は自己責任でお願いします
 
 
