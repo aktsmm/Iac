@@ -37,7 +37,10 @@ Public IPもついてます。
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
     osDiskStorageType: 'StandardSSD_LRS'
-
 ## パラメーター
 デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/01_2Vnet-2VM/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
+
+![2023-10-30_23h40_47](https://github.com/aktsmm/Iac/assets/71251920/af5252a5-88b3-44ec-b05f-0989b12f64a2)
+
+
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
