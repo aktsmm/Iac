@@ -30,7 +30,7 @@ Bastion入ってるのでデプロイに時間がかかります
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
 + https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
-Gitに上げてるjsonファイルを使うときは、rawでURLをとってURLを変換する必要がある、下記で変換してリンクをつくる
+Gitに上げてるjsonファイルを使うときは、rawでURLをとってURLを変換する必要がある、PowerShellを使って下記でエンコードしてリンクをつくる
 
 ```PowerShell
 $url = "https://raw.githubusercontent.com/aktsmm/Iac/main/03_bas-peer/main.json"
