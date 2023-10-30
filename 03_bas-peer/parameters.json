@@ -5,26 +5,44 @@
     "location": {
       "value": "Japan East"
     },
-    "VnetAName": {
+    "vnetAName": {
       "value": "Vnet-A"
-    },
-    "VnetBName": {
-      "value": "Vnet-B"
     },
     "vnetAAddressPrefix": {
       "value": "10.0.0.0/16"
     },
+    "subnetAName": {
+      "value": "A-default-subnet"
+    },
+    "nsgAName": {
+      "value": "NSG-A"
+    },
+    "nsgBName": {
+      "value": "NSG-B"
+    },
     "subnetAAddressPrefix": {
       "value": "10.0.1.0/24"
     },
+    "vmAUbuntuName": {
+      "value": "VM-Ubuntu-Hub"
+    },
+    "vmBWin2019Name": {
+      "value": "VM-Win2019-Onp"
+    },
     "adminUsername": {
-      "value": "test-admin"
+      "value": "azureuser"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "!XXXXXXXXXXXXXXXXX"
+    },
+    "vnetBName": {
+      "value": "Vnet-B"
     },
     "vnetBAddressPrefix": {
       "value": "10.1.0.0/16"
+    },
+    "subnetBName": {
+      "value": "B-default-subnet"
     },
     "subnetBAddressPrefix": {
       "value": "10.1.1.0/24"
