@@ -17,7 +17,8 @@ bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Mic
 Public IPもついてます。
 
 イメージ図はこんな感じ。
-![2023-10-30_17h18_21](https://github.com/aktsmm/Iac/assets/71251920/2388c3f4-bc6e-4670-a097-68ee180555f7)
+![2023-10-31_02h23_14](https://github.com/aktsmm/Iac/assets/71251920/f2fc56e0-1933-4b7d-b44c-574f4dbef4f7)
+
 
 ## Deploy to Azure
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) 
