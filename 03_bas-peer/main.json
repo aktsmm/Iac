@@ -1,0 +1,946 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.22.6.54827",
+      "templateHash": "17613435140156573094"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string"
+    },
+    "VnetAName": {
+      "type": "string"
+    },
+    "VnetBName": {
+      "type": "string"
+    },
+    "vnetAAddressPrefix": {
+      "type": "string"
+    },
+    "subnetAName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-Subnet', parameters('VnetAName'))]"
+    },
+    "subnetAAddressPrefix": {
+      "type": "string"
+    },
+    "nsgAName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-nsg', parameters('VnetAName'))]"
+    },
+    "vnetBAddressPrefix": {
+      "type": "string"
+    },
+    "subnetBName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-Subnet', parameters('VnetBName'))]"
+    },
+    "subnetBAddressPrefix": {
+      "type": "string"
+    },
+    "nsgBName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-nsg', parameters('VnetBName'))]"
+    },
+    "vmAUbuntuName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-Ubu', parameters('VnetAName'))]"
+    },
+    "vmBWin2019Name": {
+      "type": "string",
+      "defaultValue": "[format('{0}-Win', parameters('VnetAName'))]"
+    },
+    "vmCWin2019Name": {
+      "type": "string",
+      "defaultValue": "[format('{0}-Win', parameters('VnetBName'))]"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    },
+    "bastionHostName": {
+      "type": "string",
+      "defaultValue": "[format('{0}-bastion', parameters('VnetAName'))]"
+    },
+    "azureBastionSubnetAddressPrefix": {
+      "type": "string"
+    },
+    "AzfwsubnetAddressPrefix": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-07-01",
+      "name": "[format('{0}/to{1}', parameters('VnetAName'), parameters('VnetBName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleB'), '2022-09-01').outputs.vnetId.value]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]",
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-07-01",
+      "name": "[format('{0}/to{1}', parameters('VnetBName'), parameters('VnetAName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleA'), '2022-09-01').outputs.vnetId.value]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]",
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "networkModuleA",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "azureBastionSubnetAddressPrefix": {
+            "value": "[parameters('azureBastionSubnetAddressPrefix')]"
+          },
+          "nsgName": {
+            "value": "[parameters('nsgAName')]"
+          },
+          "bastionHostName": {
+            "value": "[parameters('bastionHostName')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vnetName": {
+            "value": "[parameters('VnetAName')]"
+          },
+          "vnetAddressPrefix": {
+            "value": "[parameters('vnetAAddressPrefix')]"
+          },
+          "subnetName": {
+            "value": "[parameters('subnetAName')]"
+          },
+          "subnetAddressPrefix": {
+            "value": "[parameters('subnetAAddressPrefix')]"
+          },
+          "AzfwsubnetAddressPrefix": {
+            "value": "[parameters('AzfwsubnetAddressPrefix')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.22.6.54827",
+              "templateHash": "9040070231445464446"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string"
+            },
+            "vnetName": {
+              "type": "string"
+            },
+            "vnetAddressPrefix": {
+              "type": "string"
+            },
+            "subnetName": {
+              "type": "string"
+            },
+            "subnetAddressPrefix": {
+              "type": "string"
+            },
+            "AzfwsubnetAddressPrefix": {
+              "type": "string"
+            },
+            "nsgName": {
+              "type": "string"
+            },
+            "bastionHostName": {
+              "type": "string"
+            },
+            "azureBastionSubnetAddressPrefix": {
+              "type": "string"
+            },
+            "firewallPublicIpName": {
+              "type": "string",
+              "defaultValue": "Azfw-pip"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('vnetName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[parameters('vnetAddressPrefix')]"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/subnets",
+              "apiVersion": "2023-05-01",
+              "name": "[format('{0}/{1}', parameters('vnetName'), parameters('subnetName'))]",
+              "properties": {
+                "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2022-07-01",
+              "name": "[format('{0}-pip', parameters('bastionHostName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publicIPAllocationMethod": "Static"
+              },
+              "sku": {
+                "name": "Standard"
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/subnets",
+              "apiVersion": "2022-01-01",
+              "name": "[format('{0}/{1}', parameters('vnetName'), 'AzureBastionSubnet')]",
+              "properties": {
+                "addressPrefix": "[parameters('azureBastionSubnetAddressPrefix')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/bastionHosts",
+              "apiVersion": "2022-07-01",
+              "name": "[parameters('bastionHostName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "properties": {
+                      "subnet": {
+                        "id": "[format('{0}/subnets/AzureBastionSubnet', resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')))]"
+                      },
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionHostName')))]"
+                      },
+                      "privateIPAllocationMethod": "Dynamic"
+                    },
+                    "name": "ipconfig1"
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionHostName')))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2023-05-01",
+              "name": "[parameters('nsgName')]",
+              "location": "[parameters('location')]"
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/subnets",
+              "apiVersion": "2023-05-01",
+              "name": "[format('{0}/{1}', parameters('vnetName'), 'AzureFirewallSubnet')]",
+              "properties": {
+                "addressPrefix": "[parameters('AzfwsubnetAddressPrefix')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2022-07-01",
+              "name": "[parameters('firewallPublicIpName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publicIPAllocationMethod": "Static"
+              }
+            }
+          ],
+          "outputs": {
+            "subnetId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+            },
+            "vnetId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "networkModuleB",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "nsgName": {
+            "value": "[parameters('nsgBName')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vnetName": {
+            "value": "[parameters('VnetBName')]"
+          },
+          "vnetAddressPrefix": {
+            "value": "[parameters('vnetBAddressPrefix')]"
+          },
+          "subnetName": {
+            "value": "[parameters('subnetBName')]"
+          },
+          "subnetAddressPrefix": {
+            "value": "[parameters('subnetBAddressPrefix')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.22.6.54827",
+              "templateHash": "9461385523215220867"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string"
+            },
+            "vnetName": {
+              "type": "string"
+            },
+            "vnetAddressPrefix": {
+              "type": "string"
+            },
+            "subnetName": {
+              "type": "string"
+            },
+            "subnetAddressPrefix": {
+              "type": "string"
+            },
+            "nsgName": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('vnetName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[parameters('vnetAddressPrefix')]"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/subnets",
+              "apiVersion": "2023-05-01",
+              "name": "[format('{0}/{1}', parameters('vnetName'), parameters('subnetName'))]",
+              "properties": {
+                "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2023-05-01",
+              "name": "[parameters('nsgName')]",
+              "location": "[parameters('location')]"
+            }
+          ],
+          "outputs": {
+            "subnetId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+            },
+            "vnetId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "vmModuleA_Ubuntu",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vmName": {
+            "value": "[parameters('vmAUbuntuName')]"
+          },
+          "vmSize": {
+            "value": "Standard_B2ms"
+          },
+          "osImageOffer": {
+            "value": "0001-com-ubuntu-minimal-focal"
+          },
+          "osImagePublisher": {
+            "value": "Canonical"
+          },
+          "osImageSku": {
+            "value": "minimal-20_04-lts"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "osDiskStorageType": {
+            "value": "StandardSSD_LRS"
+          },
+          "subnetId": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleA'), '2022-09-01').outputs.subnetId.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.22.6.54827",
+              "templateHash": "3662061893620753164"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "vmName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string"
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "osImageOffer": {
+              "type": "string"
+            },
+            "osImagePublisher": {
+              "type": "string"
+            },
+            "osImageSku": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring"
+            },
+            "osDiskStorageType": {
+              "type": "string"
+            },
+            "osdiskname": {
+              "type": "string",
+              "defaultValue": "[format('{0}-osdisk', parameters('vmName'))]"
+            },
+            "subnetId": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-04-01",
+              "name": "[format('{0}-publicip', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+              }
+            },
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-08-01",
+              "name": "[format('{0}-NIC', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig",
+                    "properties": {
+                      "subnet": {
+                        "id": "[parameters('subnetId')]"
+                      },
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+                      }
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "createOption": "FromImage",
+                    "name": "[parameters('osdiskname')]",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('osDiskStorageType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('osImagePublisher')]",
+                    "offer": "[parameters('osImageOffer')]",
+                    "sku": "[parameters('osImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "vmModuleB_Windows",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vmName": {
+            "value": "[parameters('vmBWin2019Name')]"
+          },
+          "vmSize": {
+            "value": "Standard_B2ms"
+          },
+          "osImageOffer": {
+            "value": "WindowsServer"
+          },
+          "osImagePublisher": {
+            "value": "MicrosoftWindowsServer"
+          },
+          "osImageSku": {
+            "value": "2019-Datacenter"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "osDiskStorageType": {
+            "value": "StandardSSD_LRS"
+          },
+          "subnetId": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleA'), '2022-09-01').outputs.subnetId.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.22.6.54827",
+              "templateHash": "3662061893620753164"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "vmName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string"
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "osImageOffer": {
+              "type": "string"
+            },
+            "osImagePublisher": {
+              "type": "string"
+            },
+            "osImageSku": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring"
+            },
+            "osDiskStorageType": {
+              "type": "string"
+            },
+            "osdiskname": {
+              "type": "string",
+              "defaultValue": "[format('{0}-osdisk', parameters('vmName'))]"
+            },
+            "subnetId": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-04-01",
+              "name": "[format('{0}-publicip', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+              }
+            },
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-08-01",
+              "name": "[format('{0}-NIC', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig",
+                    "properties": {
+                      "subnet": {
+                        "id": "[parameters('subnetId')]"
+                      },
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+                      }
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "createOption": "FromImage",
+                    "name": "[parameters('osdiskname')]",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('osDiskStorageType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('osImagePublisher')]",
+                    "offer": "[parameters('osImageOffer')]",
+                    "sku": "[parameters('osImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "vmModuleC_Windows",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vmName": {
+            "value": "[parameters('vmCWin2019Name')]"
+          },
+          "vmSize": {
+            "value": "Standard_B2ms"
+          },
+          "osImageOffer": {
+            "value": "WindowsServer"
+          },
+          "osImagePublisher": {
+            "value": "MicrosoftWindowsServer"
+          },
+          "osImageSku": {
+            "value": "2019-Datacenter"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "osDiskStorageType": {
+            "value": "StandardSSD_LRS"
+          },
+          "subnetId": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleB'), '2022-09-01').outputs.subnetId.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.22.6.54827",
+              "templateHash": "3662061893620753164"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]"
+            },
+            "vmName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string"
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "osImageOffer": {
+              "type": "string"
+            },
+            "osImagePublisher": {
+              "type": "string"
+            },
+            "osImageSku": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring"
+            },
+            "osDiskStorageType": {
+              "type": "string"
+            },
+            "osdiskname": {
+              "type": "string",
+              "defaultValue": "[format('{0}-osdisk', parameters('vmName'))]"
+            },
+            "subnetId": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-04-01",
+              "name": "[format('{0}-publicip', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+              }
+            },
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-08-01",
+              "name": "[format('{0}-NIC', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig",
+                    "properties": {
+                      "subnet": {
+                        "id": "[parameters('subnetId')]"
+                      },
+                      "privateIPAllocationMethod": "Dynamic",
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+                      }
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip', parameters('vmName')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "createOption": "FromImage",
+                    "name": "[parameters('osdiskname')]",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('osDiskStorageType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('osImagePublisher')]",
+                    "offer": "[parameters('osImageOffer')]",
+                    "sku": "[parameters('osImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-NIC', parameters('vmName')))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    }
+  ],
+  "outputs": {
+    "vnetAId": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleA'), '2022-09-01').outputs.vnetId.value]"
+    },
+    "vnetBId": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', 'networkModuleB'), '2022-09-01').outputs.vnetId.value]"
+    }
+  }
+}
