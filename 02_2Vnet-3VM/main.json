@@ -5,51 +5,58 @@
     "_generator": {
       "name": "bicep",
       "version": "0.22.6.54827",
-      "templateHash": "5670757692451008128"
+      "templateHash": "15802692966585383733"
     }
   },
   "parameters": {
     "location": {
       "type": "string"
     },
-    "vnetAName": {
+    "VnetAName": {
+      "type": "string"
+    },
+    "VnetBName": {
       "type": "string"
     },
     "vnetAAddressPrefix": {
       "type": "string"
     },
     "subnetAName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}--def-Subnet', parameters('VnetAName'))]"
     },
     "subnetAAddressPrefix": {
       "type": "string"
     },
     "nsgAName": {
-      "type": "string"
-    },
-    "vnetBName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-nsg', parameters('VnetAName'))]"
     },
     "vnetBAddressPrefix": {
       "type": "string"
     },
     "subnetBName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-def-Subnet', parameters('VnetBName'))]"
     },
     "subnetBAddressPrefix": {
       "type": "string"
     },
     "nsgBName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-nsg', parameters('VnetBName'))]"
     },
     "vmAUbuntuName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-Ubu', parameters('VnetAName'))]"
     },
     "vmBWin2019Name": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-Win', parameters('VnetAName'))]"
     },
     "vmCWin2019Name": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "[format('{0}-Win', parameters('VnetBName'))]"
     },
     "adminUsername": {
       "type": "string"
@@ -76,7 +83,7 @@
             "value": "[parameters('location')]"
           },
           "vnetName": {
-            "value": "[parameters('vnetAName')]"
+            "value": "[parameters('VnetAName')]"
           },
           "vnetAddressPrefix": {
             "value": "[parameters('vnetAAddressPrefix')]"
@@ -180,7 +187,7 @@
             "value": "[parameters('location')]"
           },
           "vnetName": {
-            "value": "[parameters('vnetBName')]"
+            "value": "[parameters('VnetBName')]"
           },
           "vnetAddressPrefix": {
             "value": "[parameters('vnetBAddressPrefix')]"
