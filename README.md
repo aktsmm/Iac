@@ -6,9 +6,11 @@
 
 ## 01_2Vnet： 検証環境のベース環境デプロイ用に作りました。
 
-独立した Vnet を2つ作ります。
-イメージ図はこんな感じ。
-![image](https://github.com/aktsmm/Iac/assets/71251920/be8b2d22-f031-4076-9c0c-8b8ca5e5e215)
+独立した Vnet を2つ、またVMを作ります。
+イメージ図はこんな感じ。(Azure のリソースVisualizer機能)
+![image](https://github.com/aktsmm/Iac/assets/71251920/ede6ff89-770a-4992-a660-b4ea40f47894)
+
+
 
 学習検証環境のベース環境デプロイ用に作りました。
 Vnet 間はつながってません。別途VnetPeeringなり、S2SVPNが必要。
