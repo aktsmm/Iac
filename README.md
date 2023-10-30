@@ -42,7 +42,8 @@ https://portal.azure.com/#create/Microsoft.Template/uri/<上記で取得した�
 ```
 でリンクをつくります。
 
-+ マークダウンで書くときはこんな感じでよくある [Deploy to Azure] ボタンができる。
++ マークダウンで書くときはこんな感じでよくある [Deploy to Azure] ボタンができます。
+下記の **""https://portal.azure.com/#create/Microsoft.Template/uri/""** 以降に上記で作ったリンクを挿入します。
 + 例
 ```
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
