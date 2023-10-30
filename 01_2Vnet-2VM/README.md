@@ -1,4 +1,4 @@
-## 01_2Vnet-2VM： 2つの Vnet をつかう検証環境作成用に作りました
+## 01_2Vnet-2VM： 2つの Vnet をつかう検証環境作成用に
 
 bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) するためにARM-Template(Json)にコンパイル(main.jaon)しました。
 パラメーターファイルは parameters.json
@@ -14,7 +14,9 @@ bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Mic
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 
 イメージ図はこんな感じ。
-![2023-10-30_12h53_09](https://github.com/aktsmm/Iac/assets/71251920/b2c4207d-dadd-4330-80e6-00c6af3ef51e)
+![2023-10-31_02h25_24](https://github.com/aktsmm/Iac/assets/71251920/4f68b045-f6a3-41fb-8e81-41a82b61523f)
+
+
 
 ## Deploy to Azure
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
