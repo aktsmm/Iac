@@ -21,7 +21,7 @@
       "value": "test-admin"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "************"
     },
     "vnetBAddressPrefix": {
       "value": "10.1.0.0/16"
