@@ -23,7 +23,8 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 Bastion入ってるのでデプロイに時間がかかります
 ![2023-10-31_02h03_39](https://github.com/aktsmm/Iac/assets/71251920/04bff503-e773-4ceb-a64f-12dd17fb68bd)
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json) 
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json)
 
 
 ## おまけ：Deploy to Azure Bottun の作り方
@@ -41,9 +42,10 @@ https://portal.azure.com/#create/Microsoft.Template/uri/<上記で取得した�
 ```
 でリンクをつくります。
 
-+ マークダウンで書くときはこんな感じでよくある **[Deploy to Azure] ボタン**ができる。
++ マークダウンで書くときはこんな感じでよくある [Deploy to Azure] ボタンができる。
++ 例
 ```
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
 ``````
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
