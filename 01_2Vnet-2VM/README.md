@@ -14,7 +14,8 @@ bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Mic
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 
 イメージ図はこんな感じ。
-![image](https://github.com/aktsmm/Iac/assets/71251920/be8b2d22-f031-4076-9c0c-8b8ca5e5e215)
+![image](https://github.com/aktsmm/Iac/assets/71251920/d50d7863-3278-492b-8b0f-010e525a684d)
+
 
 ## Deploy to Azure
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
