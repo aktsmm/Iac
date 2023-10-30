@@ -18,8 +18,7 @@ Vnet 間はつながってません。別途VnetPeeringなり、S2SVPNが必要�
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet%2Fmain.json)
-
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
 ## Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
 https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
