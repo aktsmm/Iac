@@ -4,9 +4,9 @@
 使用は自己責任で
 
 
-## 01_2Vnet： 検証環境のベース環境デプロイ用に作りました。
+## 01_2Vnet-2VM： 検証環境のベース環境デプロイ用に作りました。
 
-独立した Vnet を2つ、またVMを作ります。
+独立した Vnet を2つ、またVMを2つ作ります。
 イメージ図はこんな感じ。(Azure のリソースVisualizer機能)
 ![image](https://github.com/aktsmm/Iac/assets/71251920/ede6ff89-770a-4992-a660-b4ea40f47894)
 
