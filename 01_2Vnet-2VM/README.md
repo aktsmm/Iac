@@ -36,5 +36,5 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
     osDiskStorageType: 'StandardSSD_LRS'
 
 ## パラメーター
-デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/01_2Vnet/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/01_2Vnet-2VM/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
