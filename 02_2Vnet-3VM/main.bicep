@@ -1,19 +1,20 @@
 param location string
-param vnetAName string
-param vnetAAddressPrefix string
-param subnetAName string
+param VnetAName string
+param VnetBName string
+
+param vnetAAddressPrefix string 
+param subnetAName string ='${VnetAName}--def-Subnet'
 param subnetAAddressPrefix string
-param nsgAName string
+param nsgAName string='${VnetAName}-nsg'
 
-param vnetBName string
 param vnetBAddressPrefix string
-param subnetBName string
+param subnetBName string='${VnetBName}-def-Subnet'
 param subnetBAddressPrefix string
-param nsgBName string
+param nsgBName string='${VnetBName}-nsg'
 
-param vmAUbuntuName string
-param vmBWin2019Name string
-param vmCWin2019Name string
+param vmAUbuntuName string='${VnetAName}-Ubu'
+param vmBWin2019Name string='${VnetAName}-Win'
+param vmCWin2019Name string='${VnetBName}-Win'
 param adminUsername string
 @secure()
 param adminPassword string
@@ -24,7 +25,7 @@ module networkModuleA 'NW.bicep' = {
   params: {
     nsgName: nsgAName
     location: location
-    vnetName: vnetAName
+    vnetName: VnetAName
     vnetAddressPrefix: vnetAAddressPrefix
     subnetName: subnetAName
     subnetAddressPrefix: subnetAAddressPrefix
@@ -36,7 +37,7 @@ module networkModuleB 'NW.bicep' = {
   params: {
     nsgName: nsgBName
     location: location
-    vnetName: vnetBName
+    vnetName: VnetBName
     vnetAddressPrefix: vnetBAddressPrefix
     subnetName: subnetBName
     subnetAddressPrefix: subnetBAddressPrefix
