@@ -9,7 +9,7 @@
 イメージ図はこんな感じ。(Azure のリソースVisualizer機能)
 Vnet 間はつながってません。別途VnetPeeringなり、S2SVPNが必要。
 Public IPもついてます。片方のVnetはWindows Server 2019 、もう片方は Ubuntu がデプロイされます。
-![image](https://github.com/aktsmm/Iac/assets/71251920/ede6ff89-770a-4992-a660-b4ea40f47894)
+![2023-10-31_02h25_24](https://github.com/aktsmm/Iac/assets/71251920/4f68b045-f6a3-41fb-8e81-41a82b61523f)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
 
