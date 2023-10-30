@@ -34,3 +34,5 @@ https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-
 $url = "https://raw.githubusercontent.com/aktsmm/Iac/main/03_bas-peer/main.json"
 [uri]::EscapeDataString($url)
 $: https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json
+```
+
