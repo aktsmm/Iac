@@ -1,9 +1,6 @@
 ## 03_bas-peer： 2つの Vnetをデプロイし、Vnet peering ,Bastionまでデプロイします。
  
-bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/) 
-
-
-するためにARM-Template(Json)にコンパイル(main.jaon)しました。
+bicepで書いてそれを[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json)するためにARM-Template(Json)にコンパイル(main.jaon)しました。
 パラメーターファイルは parameters.json
 
 ざっくりというと、、、
@@ -21,7 +18,7 @@ Public IPもついてます。
 
 
 ## Deploy to Azure
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json)
 
 
 
