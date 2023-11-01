@@ -26,6 +26,15 @@ Bastion入ってるのでデプロイに時間がかかります
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json)
 
+## 04_Hub-Spoke-on： 3つの Vnetをデプロイし、Hub-Spoke間にVnet peering ,HubにBastion、それぞれのVnetにVMをデプロイします。
+03を改良し、Onpreに見立てた Vnet を作るものBastion入ってるのでデプロイに時間がかかります
+![2023-11-01_12h23_49](https://github.com/aktsmm/Iac/assets/71251920/24b13e42-589b-4ebe-bd7d-330ada032869)
+
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json) 
+
+
+
 
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
