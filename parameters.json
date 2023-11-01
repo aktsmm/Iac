@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "Japan East"
+    },
+    "adminUsername": {
+      "value": "test-admin"
+    },
+    "adminPassword": {
+      "value": "!qazxsw21478520"
+    },
+    "HubVnetName": {
+      "value": "Vnet-Hub"
+    },
+    "SpokeVnetName": {
+      "value": "Vnet-Spoke"
+    }, 
+    "OnpVnetName": {
+      "value": "Vnet-Onp"
+    },
+    "vnetHubAddressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "subnetHubAddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "HubBastionSubnetAddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "HubAzfwsubnetAddressPrefix": {
+      "value": "10.0.3.0/26"
+    },
+    "vnetSpokeAddressPrefix": {
+      "value": "10.1.0.0/16"
+    },
+    "subnetSpokeAddressPrefix": {
+      "value": "10.1.1.0/24"
+    },
+    "vnetOnpAddressPrefix": {
+      "value": "10.2.0.0/16"
+    },
+    "subnetOnpAddressPrefix": {
+      "value": "10.2.1.0/24"
+    }
+  }
+}
