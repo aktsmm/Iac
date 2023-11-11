@@ -45,6 +45,16 @@ Bastion入ってるのでデプロイに時間がかかります
 
 ![2023-11-12_00h47_27](https://github.com/aktsmm/Iac/assets/71251920/947fadac-2e3a-4821-bedd-600e0b7927d8)
 
+
+## 06_hub-spoke_vpngw-onp： 04のHubVnetにVPNGWをデプロイ
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F06_hub_vpngw-spoke-onp%2Fmain.json) 
+
+
+イメージ図はこんな感じ。
+![2023-11-12_01h58_49](https://github.com/aktsmm/Iac/assets/71251920/a24bf84d-7eef-4b1f-9335-5f49ef31230d)
+
+
+
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
 + https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
