@@ -1,5 +1,5 @@
 ## 06_hub-spoke_vpngw-onp： 04のHubVnetにVPNGWをデプロイしたものです。
-bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json) 
+bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F06_hub_vpngw-spoke-onp%2Fmain.json) 
 するためにARM-Template(Json)にコンパイル(main.jaon)しました。
 パラメーターファイルは parameters.json
 
@@ -17,7 +17,7 @@ Public IPもついてます。
 ![2023-11-12_01h58_49](https://github.com/aktsmm/Iac/assets/71251920/a24bf84d-7eef-4b1f-9335-5f49ef31230d)
 
 ## Deploy to Azure
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F06_hub_vpngw-spoke-onp%2Fmain.json) 
 
 ## べた書きしてる(パラメーター指定できない値)
 ### VM-A / Ubuntu
@@ -34,5 +34,5 @@ Public IPもついてます。
     osDiskStorageType: 'StandardSSD_LRS'
 
     ## パラメーター
-デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/04_HUb-Spoke-Onp/parameters.json)をコピーして、password部分など適宜編集して貼り付けると楽だと思います。
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/06_hub_vpngw-spoke-onp/parameters.json)をコピーして、password部分など適宜編集して貼り付けると楽だと思います。
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
