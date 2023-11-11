@@ -15,6 +15,7 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 
 ## 02_2Vnet-3VM： 2つの Vnet をつかうシンプルな検証環境作成用に
 ↑にWindows VMを1つ増やしました
+
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) 
 
 ![2023-10-31_02h23_14](https://github.com/aktsmm/Iac/assets/71251920/f2fc56e0-1933-4b7d-b44c-574f4dbef4f7)
@@ -22,6 +23,7 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 
 ## 03_bas-peer:  2Vnet、3VM 、加えてVnet Peering、Azure Bastion
 Bastion入ってるのでデプロイに時間がかかります
+
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F03_bas-peer%2Fmain.json)
 
 ![2023-10-31_02h03_39](https://github.com/aktsmm/Iac/assets/71251920/04bff503-e773-4ceb-a64f-12dd17fb68bd)
@@ -40,6 +42,7 @@ Bastion入ってるのでデプロイに時間がかかります
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F05_SingleVnet-vpngw%2Fbasic_vpngw_1file.json) 
 
 イメージ図はこんな感じ。
+
 ![2023-11-12_00h47_27](https://github.com/aktsmm/Iac/assets/71251920/947fadac-2e3a-4821-bedd-600e0b7927d8)
 
 ## おまけ：Deploy to Azure Bottun の作り方
