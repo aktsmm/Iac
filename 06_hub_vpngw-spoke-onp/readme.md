@@ -32,7 +32,9 @@ Public IPもついてます。
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
     osDiskStorageType: 'StandardSSD_LRS'
-
-    ## パラメーター
+## 他
+ vpngwsku ："VpnGw1" とか "basic" とか入れていければいいなと思っています。
+ 検証であれば大きな違いとしては 課金があるので基本P2S の時は basic 、s2sが必要な時はVpnGw1 とかでいいかなと。
+## パラメーター
 デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/06_hub_vpngw-spoke-onp/parameters.json)をコピーして、password部分など適宜編集して貼り付けると楽だと思います。
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
