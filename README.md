@@ -34,7 +34,12 @@ Bastion入ってるのでデプロイに時間がかかります
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json) 
 
 
+## 05_SingleVnet-vpngw： 1つの Vnetをデプロイし、VPNGWをデプロイします。超シンプル
+ 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F05_SingleVnet-vpngw%2Fbasic_vpngw_1file.json) 
 
+イメージ図はこんな感じ。
+![2023-11-12_00h47_27](https://github.com/aktsmm/Iac/assets/71251920/947fadac-2e3a-4821-bedd-600e0b7927d8)
 
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
