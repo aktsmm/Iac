@@ -80,6 +80,9 @@ resource bastionHost 'Microsoft.Network/bastionHosts@2022-07-01' = {
       }
     ]
   }
+  dependsOn: [
+    bastionSubnet
+  ]
 }
 
 
@@ -98,6 +101,9 @@ resource AZFWSubnet 'Microsoft.Network/virtualNetworks/subnets@2023-05-01' = {
   properties: {
     addressPrefix: AzfwsubnetAddressPrefix
   }
+  dependsOn: [
+    bastionSubnet
+  ]
 }
 /*
 resource firewallPublicIp 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
