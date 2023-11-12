@@ -54,6 +54,9 @@ resource bastionSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' = 
   properties: {
     addressPrefix: azureBastionSubnetAddressPrefix
   }
+  dependsOn: [
+    defaultsubnet
+  ]
 }
 
 
