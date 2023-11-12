@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.22.6.54827",
-      "templateHash": "17613435140156573094"
+      "version": "0.23.1.45101",
+      "templateHash": "13985264122074111115"
     }
   },
   "parameters": {
@@ -156,8 +156,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "9040070231445464446"
+              "version": "0.23.1.45101",
+              "templateHash": "8645960273011566516"
             }
           },
           "parameters": {
@@ -242,6 +242,7 @@
                 "addressPrefix": "[parameters('azureBastionSubnetAddressPrefix')]"
               },
               "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
               ]
             },
@@ -262,12 +263,13 @@
                       },
                       "privateIPAllocationMethod": "Dynamic"
                     },
-                    "name": "ipconfig1"
+                    "name": "[format('{0}-ipconf', parameters('bastionHostName'))]"
                   }
                 ]
               },
               "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('bastionHostName')))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), 'AzureBastionSubnet')]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
               ]
             },
@@ -285,17 +287,9 @@
                 "addressPrefix": "[parameters('AzfwsubnetAddressPrefix')]"
               },
               "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), 'AzureBastionSubnet')]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
               ]
-            },
-            {
-              "type": "Microsoft.Network/publicIPAddresses",
-              "apiVersion": "2022-07-01",
-              "name": "[parameters('firewallPublicIpName')]",
-              "location": "[parameters('location')]",
-              "properties": {
-                "publicIPAllocationMethod": "Static"
-              }
             }
           ],
           "outputs": {
@@ -346,8 +340,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "9461385523215220867"
+              "version": "0.23.1.45101",
+              "templateHash": "15325534734062570070"
             }
           },
           "parameters": {
@@ -466,8 +460,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "3662061893620753164"
+              "version": "0.23.1.45101",
+              "templateHash": "12575874793841048045"
             }
           },
           "parameters": {
@@ -637,8 +631,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "3662061893620753164"
+              "version": "0.23.1.45101",
+              "templateHash": "12575874793841048045"
             }
           },
           "parameters": {
@@ -808,8 +802,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "3662061893620753164"
+              "version": "0.23.1.45101",
+              "templateHash": "12575874793841048045"
             }
           },
           "parameters": {
