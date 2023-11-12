@@ -1,51 +1,39 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
       "value": "Japan East"
     },
-    "vnetAName": {
-      "value": "Vnet-A"
+    "VnetAName": {
+      "value": "Vnet-Hub"
+    },
+    "VnetBName": {
+      "value": "Vnet-Spoke"
     },
     "vnetAAddressPrefix": {
-      "value": "10.0.0.0/16"
-    },
-    "subnetAName": {
-      "value": "A-default-subnet"
-    },
-    "nsgAName": {
-      "value": "NSG-A"
-    },
-    "nsgBName": {
-      "value": "NSG-B"
+      "value": "10.100.0.0/16"
     },
     "subnetAAddressPrefix": {
-      "value": "10.0.1.0/24"
-    },
-    "vmAUbuntuName": {
-      "value": "VM-Ubuntu-Hub"
-    },
-    "vmBWin2019Name": {
-      "value": "VM-Win2019-Onp"
-    },
-    "adminUsername": {
-      "value": "azureuser"
-    },
-    "adminPassword": {
-      "value": "!XXXXXXXXXXXXXXXXX"
-    },
-    "vnetBName": {
-      "value": "Vnet-B"
+      "value": "10.100.1.0/24"
     },
     "vnetBAddressPrefix": {
-      "value": "10.1.0.0/16"
-    },
-    "subnetBName": {
-      "value": "B-default-subnet"
+      "value": "10.200.0.0/16"
     },
     "subnetBAddressPrefix": {
-      "value": "10.1.1.0/24"
+      "value": "10.200.1.0/24"
+    },
+    "adminUsername": {
+      "value": "test-admin"
+    },
+    "adminPassword": {
+      "value": "!qazxsw21478520"
+    },
+    "azureBastionSubnetAddressPrefix": {
+      "value": "10.100.240.0/24"
+    },
+    "AzfwsubnetAddressPrefix": {
+      "value": "10.100.241.0/24"
     }
   }
 }
