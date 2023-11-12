@@ -25,6 +25,7 @@ resource defaultsubnet 'Microsoft.Network/virtualNetworks/subnets@2023-05-01' = 
   parent: vnetHub
   dependsOn: [
     nsg
+    vnetHub
   ]
   properties: {
     addressPrefix: subnetAddressPrefix
@@ -75,7 +76,7 @@ resource bastionHost 'Microsoft.Network/bastionHosts@2022-07-01' = {
           }
           privateIPAllocationMethod: 'Dynamic'
         }
-        name: 'ipconfig1'
+        name: '${bastionHostName}-ipconf'
       }
     ]
   }
