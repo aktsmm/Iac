@@ -55,6 +55,18 @@ Bastion入ってるのでデプロイに時間がかかります
 
 
 
+## 07_1Vnet-2VM： 1つの Vnet をつかうシンプルな検証環境作成用に
+ [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F07_1Vnet-2VM%2Fmain.json) 
+
++ 独立した Vnet を１つ作ります。
++ それぞれにWindowsとUbuntu がデプロイされます。
++ Public IPもついてます
+ ![2023-11-13_21h57_11](https://github.com/aktsmm/Iac/assets/71251920/f6844d85-5a79-4073-a25e-8c9697314f4d)
+
+
+
+
+
 ## おまけ：Deploy to Azure Bottun の作り方
 大まかにGithub にソースを上げてURL取得、加工してリンク作成です。
 + https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/templates/deploy-to-azure-button
