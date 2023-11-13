@@ -37,7 +37,7 @@ Public IPもついてます。
     osImageSku: '2019-Datacenter'
     osDiskStorageType: 'StandardSSD_LRS'
 ## パラメーター
-デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/07_1Vnet-2VM/parameters.jsonをコピーして、適宜編集して貼り付けると楽だと思います。
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/07_1Vnet-2VM/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
 
 ![2023-10-30_23h40_47](https://github.com/aktsmm/Iac/assets/71251920/af5252a5-88b3-44ec-b05f-0989b12f64a2)
 
