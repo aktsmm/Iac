@@ -1,6 +1,6 @@
 ## 07_1Vnet-2VM： 1つの Vnet をつかうシンプルな検証環境作成用に
  
-bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) 
+bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F07_1Vnet-2VM%2Fmain.json) 
 
 
 するためにARM-Template(Json)にコンパイル(main.jaon)しました。
@@ -9,6 +9,7 @@ bicepで書いてそれを[Deploy to Azure](https://portal.azure.com/#create/Mic
 ざっくりというと、、、
 + 独立した Vnet を１つ作ります。
 + それぞれにWindowsとUbuntu がデプロイされます。
++ Public IPもついてます
 
 大体のリソース名はパラメーターファイルで変えられます。
 Public IPもついてます。
@@ -18,7 +19,7 @@ Public IPもついてます。
 
 
 ## Deploy to Azure
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json) 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F07_1Vnet-2VM%2Fmain.json) 
 
 
 
@@ -29,14 +30,14 @@ Public IPもついてます。
     osImagePublisher: 'Canonical'
     osImageSku: 'minimal-20_04-lts'
     osDiskStorageType:'StandardSSD_LRS'
-### VM-B とVM-C /Windows
+### VM-B / Windows
     vmSize: 'Standard_B2ms'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
     osDiskStorageType: 'StandardSSD_LRS'
 ## パラメーター
-デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/01_2Vnet-2VM/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/07_1Vnet-2VM/parameters.jsonをコピーして、適宜編集して貼り付けると楽だと思います。
 
 ![2023-10-30_23h40_47](https://github.com/aktsmm/Iac/assets/71251920/af5252a5-88b3-44ec-b05f-0989b12f64a2)
 
