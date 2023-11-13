@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "Japan East"
+    },
+    "VnetAName": {
+      "value": "Vnet-Hub"
+    },
+    "VnetBName": {
+      "value": "Vnet-Spoke"
+    },
+    "vnetAAddressPrefix": {
+      "value": "10.100.0.0/16"
+    },
+    "subnetAAddressPrefix": {
+      "value": "10.100.1.0/24"
+    },
+    "vnetBAddressPrefix": {
+      "value": "10.200.0.0/16"
+    },
+    "subnetBAddressPrefix": {
+      "value": "10.200.1.0/24"
+    },
+    "adminUsername": {
+      "value": "test-admin"
+    },
+    "adminPassword": {
+      "value": "P@ssw0rd"
+    }
+  }
+}

@@ -27,7 +27,7 @@
       "value": "test-admin"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "P@ssw0rd"
     },
     "azureBastionSubnetAddressPrefix": {
       "value": "10.100.240.0/24"
