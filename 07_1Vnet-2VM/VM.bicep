@@ -12,7 +12,7 @@ param osdiskname string = '${vmName}-osdisk' // 文字列補間を使用して�
 param subnetId string
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
-  name: '${vmName}-publicip'
+  name: '${vmName}-pip'
   location: location
   properties: {
     publicIPAllocationMethod: 'Dynamic'
@@ -20,7 +20,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
 }
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-08-01' = {
-  name: '${vmName}-NIC'
+  name: '${vmName}-nic'
   location: location
   dependsOn: [
     publicIP
