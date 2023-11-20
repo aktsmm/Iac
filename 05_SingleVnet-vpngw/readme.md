@@ -27,6 +27,6 @@ param publicIpName string = '${vpngwName}-pip'
 param gatewaySubnetAddress string //= '10.0.100.0/24'
 param VnetAddress string //= '10.0.0.0/16'
 
-デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/05_SingleVnet-vpngw/main.parameters.json)をコピーして、password部分など適宜編集して貼り付けると楽だと思います。
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/05_SingleVnet-vpngw/parameters.json)をコピーして、password部分など適宜編集して貼り付けると楽だと思います。
 
 ![2023-11-12_00h58_45](https://github.com/aktsmm/Iac/assets/71251920/e37e472f-3b71-4f25-b007-222c00f2ca18)
