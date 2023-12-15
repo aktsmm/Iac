@@ -433,13 +433,13 @@
             "value": "Standard_B2ms"
           },
           "osImageOffer": {
-            "value": "0001-com-ubuntu-minimal-focal"
+            "value": "0001-com-ubuntu-server-focal"
           },
           "osImagePublisher": {
             "value": "Canonical"
           },
           "osImageSku": {
-            "value": "minimal-20_04-lts"
+            "value": "20_04-lts"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
