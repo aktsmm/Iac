@@ -33,7 +33,7 @@
       "value": "azureuser"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "***********"
     },
     "vnetBName": {
       "value": "Vnet-B"
