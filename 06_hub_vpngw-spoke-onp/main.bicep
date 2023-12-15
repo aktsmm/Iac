@@ -94,9 +94,9 @@ module vmHubA_Ubuntu 'VM.bicep' = {
     location: location
     vmName: vmHubA_UbuntuName
     vmSize: 'Standard_B2ms'
-    osImageOffer: '0001-com-ubuntu-minimal-focal'
+    osImageOffer: '0001-com-ubuntu-server-focal'
     osImagePublisher: 'Canonical'
-    osImageSku: 'minimal-20_04-lts'
+    osImageSku: '20_04-lts'
     adminUsername: adminUsername
     adminPassword: adminPassword
     osDiskStorageType:'StandardSSD_LRS'
