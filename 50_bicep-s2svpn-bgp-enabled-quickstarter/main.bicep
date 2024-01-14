@@ -1,4 +1,4 @@
-param locationSite1 string
+ param locationSite1 string
 param locationSite2 string
 
 param vmAdminUsername string
