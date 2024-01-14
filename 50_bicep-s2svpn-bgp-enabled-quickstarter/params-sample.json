@@ -9,13 +9,13 @@
             "value": "japanwest"
         },
         "vmAdminUsername": {
-            "value": "azureuser"
+            "value": "test-admin"
         },
         "vmAdminPassword": {
-            "value": "P@ssw0rd"
+            "value": "!qazxsw21478520"
         },
         "principalId": {
-            "value": "<YOUR-USER-OBJECT-ID>"
+            "value": "b93559df-beaa-4f82-973d-df5e5d416a32"
         }
     }
 }
