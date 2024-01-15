@@ -25,13 +25,13 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 
 ## べた書きしてる(パラメーター指定できない値)
 ### VM-A / Ubuntu
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: '0001-com-ubuntu-server-focal'
     osImagePublisher: 'Canonical'
     osImageSku: '20_04-lts'
     osDiskStorageType:'StandardSSD_LRS'
 ### VM-B /Windows
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'

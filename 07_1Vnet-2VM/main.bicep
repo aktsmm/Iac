@@ -31,7 +31,7 @@ module vmModuleA_Ubuntu 'VM.bicep' = {
   params: {
     location: location
     vmName: vmAUbuntuName
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: '0001-com-ubuntu-server-focal'
     osImagePublisher: 'Canonical'
     osImageSku: '20_04-lts'
@@ -51,7 +51,7 @@ module vmModuleB_Windows 'VM.bicep' = {
   params: {
     location: location
     vmName: vmBWin2019Name
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'

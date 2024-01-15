@@ -80,7 +80,7 @@ module vmHubA_Ubuntu 'VM.bicep' = {
   params: {
     location: location
     vmName: vmHubA_UbuntuName
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: '0001-com-ubuntu-server-focal'
     osImagePublisher: 'Canonical'
     osImageSku: '20_04-lts'
@@ -100,7 +100,7 @@ module vmHubB_Windows 'VM.bicep' = {
   params: {
     location: location
     vmName: vmHubB_WindowsName
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
@@ -119,7 +119,7 @@ module vmSpoke_Windows'VM.bicep' = {
   params: {
     location: location
     vmName: vmSpoke_WindowsName
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
@@ -138,7 +138,7 @@ module vmOnp_Windows'VM.bicep' = {
   params: {
     location: location
     vmName: vmOnp_WindowsName
-    vmSize: 'Standard_B2ms'
+    vmSize: 'Standard_B2s'
     osImageOffer: 'WindowsServer'
     osImagePublisher: 'MicrosoftWindowsServer'
     osImageSku: '2019-Datacenter'
