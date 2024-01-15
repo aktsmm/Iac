@@ -662,7 +662,7 @@
             "value": "[parameters('vmHubA_UbuntuName')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "0001-com-ubuntu-server-focal"
@@ -833,7 +833,7 @@
             "value": "[parameters('vmHubB_WindowsName')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "WindowsServer"
@@ -1004,7 +1004,7 @@
             "value": "[parameters('vmSpoke_WindowsName')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "WindowsServer"
@@ -1175,7 +1175,7 @@
             "value": "[parameters('vmOnp_WindowsName')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "WindowsServer"

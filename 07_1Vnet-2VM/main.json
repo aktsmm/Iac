@@ -166,7 +166,7 @@
             "value": "[parameters('vmAUbuntuName')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "0001-com-ubuntu-server-focal"
@@ -337,7 +337,7 @@
             "value": "[parameters('vmBWin2019Name')]"
           },
           "vmSize": {
-            "value": "Standard_B2ms"
+            "value": "Standard_B2s"
           },
           "osImageOffer": {
             "value": "WindowsServer"
