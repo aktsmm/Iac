@@ -16,7 +16,7 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 ## 02_2Vnet-3VM： 2つの Vnet をつかうシンプルな検証環境作成用に
 ↑にWindows VMを1つ増やしました
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json){:target="_blank"}
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F01_2Vnet-2VM%2Fmain.json)
 
 ![2023-10-31_02h23_14](https://github.com/aktsmm/Iac/assets/71251920/f2fc56e0-1933-4b7d-b44c-574f4dbef4f7)
 
@@ -33,7 +33,7 @@ Bastion入ってるのでデプロイに時間がかかります
 ## 04_Hub-Spoke-on： 3つの Vnetをデプロイし、Hub-Spoke間にVnet peering ,HubにBastion、それぞれのVnetにVMをデプロイします。
 03を改良し、Onpreに見立てた Vnet を作るものBastion入ってるのでデプロイに時間がかかります
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json){:target="_blank"}
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F04_HUb-Spoke-Onp%2Fmain.json)
 
 ![2023-11-01_12h23_49](https://github.com/aktsmm/Iac/assets/71251920/24b13e42-589b-4ebe-bd7d-330ada032869)
 
@@ -47,7 +47,7 @@ Bastion入ってるのでデプロイに時間がかかります
 
 
 ## 06_hub-spoke_vpngw-onp： 04のHubVnetにVPNGWをデプロイ
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F06_hub_vpngw-spoke-onp%2Fmain.json){:target="_blank"}
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F06_hub_vpngw-spoke-onp%2Fmain.json)
 
 
 イメージ図はこんな感じ。
@@ -56,7 +56,7 @@ Bastion入ってるのでデプロイに時間がかかります
 
 
 ## 07_1Vnet-2VM： 1つの Vnet をつかうシンプルな検証環境作成用に
- [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F07_1Vnet-2VM%2Fmain.json){:target="_blank"}
+ [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faktsmm%2FIac%2Fmain%2F07_1Vnet-2VM%2Fmain.json)
 
 + 独立した Vnet を１つ作ります。
 + それぞれにWindowsとUbuntu がデプロイされます。
