@@ -1,13 +1,14 @@
 param location string
-param VnetAName string
+param VnetAtype string
 
 param vnetAAddressPrefix string 
-param subnetAName string ='${VnetAName}-Subnet'
+param VnetAName string='Vnet-${VnetAtype}'
+param subnetAName string ='${VnetAtype}-Subnet'
 param subnetAAddressPrefix string
-param nsgAName string='${VnetAName}-nsg'
+param nsgAName string='${subnetAName}-nsg'
 
-param vmAUbuntuName string='${VnetAName}-Ubu'
-param vmBWin2019Name string='${VnetAName}-Win'
+param vmAUbuntuName string='${VnetAtype}-Ubu'
+param vmBWin2019Name string='${VnetAtype}-Win'
 param adminUsername string
 @secure()
 param adminPassword string
