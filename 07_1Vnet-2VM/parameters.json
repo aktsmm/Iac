@@ -5,8 +5,8 @@
     "location": {
       "value": "Japan East"
     },
-    "VnetAName": {
-      "value": "Vnet-hub"
+    "VnetAtype": {
+      "value": "Hub"
     },
     "vnetAAddressPrefix": {
       "value": "10.100.0.0/16"
