@@ -43,3 +43,7 @@ Public IPもついてます。
 
 
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
+
+
+## 更新履歴
+2024/02/28(水) パラメータと変数を少し変更
