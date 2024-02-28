@@ -6,7 +6,7 @@
       "value": "Japan East"
     },
     "VnetAName": {
-      "value": "Vnet-Hub"
+      "value": "Vnet-hub"
     },
     "vnetAAddressPrefix": {
       "value": "10.100.0.0/16"
