@@ -56,7 +56,7 @@ resource vpngwPublicIP 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
   name: gatewaypublicIpName
   location: location
   properties: {
-    publicIPAllocationMethod: 'Dynamic'
+    publicIPAllocationMethod: 'Static'
   }
   sku: {
     name: 'Standard'
