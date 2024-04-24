@@ -58,6 +58,9 @@ resource vpngwPublicIP 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
   properties: {
     publicIPAllocationMethod: 'Dynamic'
   }
+  sku: {
+    name: 'Standard'
+  }
 }
 
 resource vpnGateway 'Microsoft.Network/virtualNetworkGateways@2023-04-01' = {
