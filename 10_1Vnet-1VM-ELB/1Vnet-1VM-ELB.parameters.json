@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "elbPublicIPName": {
+      "value": "myELBPublicIP"
+    },
+    "vnetName": {
+      "value": "myVnet"
+    },
+    "subnetName": {
+      "value": "mySubnet"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "subnetAddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "vmName": {
+      "value": "myVM"
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    "elbName": {
+      "value": "myELB"
+    },
+    "bastionName": {
+      "value": "myBastion"
+    },
+    "bastionPublicIPName": {
+      "value": "bastionPublicIP"
+    },
+    "bastionSubnetName": {
+      "value": "AzureBastionSubnet"
+    },
+    "adminPassword": {
+      "value": "P@ssw0rd!"
+    }
+  }
+}
