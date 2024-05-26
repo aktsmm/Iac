@@ -21,7 +21,7 @@
       "value": "myVM"
     },
     "adminUsername": {
-      "value": "azureuser"
+      "value": "test-admin"
     },
     "elbName": {
       "value": "myELB"

@@ -39,7 +39,7 @@ principalId: xxxx
 # Notes
 If you want to try ping test between onp-vm and cloud-vm, you need to access either vm. So you must create public ip resource and attach it to the nic. Configure NSG to open ssh port as well. Then connect the vm, try ping.
 ```
-azureuser@vm-ubuntu-onp$ ping 10.0.1.4
+test-admin@vm-ubuntu-onp$ ping 10.0.1.4
 PING 10.0.1.4 (10.0.1.4) 56(84) bytes of data.
 64 bytes from 10.0.1.4: icmp_seq=1 ttl=64 time=12.7 ms
 64 bytes from 10.0.1.4: icmp_seq=2 ttl=64 time=12.1 ms
