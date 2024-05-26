@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "myVnet"
+    },
+    "subnetName": {
+      "value": "mySubnet"
+    },
+    "firewallSubnetName": {
+      "value": "AzureFirewallSubnet"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "subnetAddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "bastionSubnetAddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "firewallSubnetAddressPrefix": {
+      "value": "10.0.3.0/24"
+    },
+
+    "vmName": {
+      "value": "myVM"
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    "firewallName": {
+      "value": "myFirewall"
+    },
+    "firewallPublicIPName": {
+      "value": "firewallPublicIP"
+    },
+    "bastionName": {
+      "value": "myBastion"
+    },
+    "bastionPublicIPName": {
+      "value": "bastionPublicIP"
+    },
+    "bastionSubnetName": {
+      "value": "AzureBastionSubnet"
+    },
+    "adminPassword": {
+      "value": "P@ssw0rd!"
+    }
+  }
+}
