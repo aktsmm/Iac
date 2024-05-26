@@ -18,7 +18,7 @@
       "value": "myVM"
     },
     "adminUsername": {
-      "value": "azureuser"
+      "value": "test-admin"
     },
     "natGatewayName": {
       "value": "myNatGateway"

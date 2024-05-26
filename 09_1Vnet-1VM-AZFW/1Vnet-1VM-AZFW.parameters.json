@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vnetName": {
-      "value": "myVnet"
+      "value": "Vnet-AzFW"
     },
     "subnetName": {
       "value": "mySubnet"
@@ -28,7 +28,7 @@
       "value": "myVM"
     },
     "adminUsername": {
-      "value": "azureuser"
+      "value": "test-admin"
     },
     "firewallName": {
       "value": "myFirewall"
