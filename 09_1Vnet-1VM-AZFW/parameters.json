@@ -2,14 +2,14 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "elbPublicIPName": {
-      "value": "myELBPublicIP"
-    },
     "vnetName": {
-      "value": "myVnet"
+      "value": "Vnet-AzFW"
     },
     "subnetName": {
       "value": "mySubnet"
+    },
+    "firewallSubnetName": {
+      "value": "AzureFirewallSubnet"
     },
     "vnetAddressPrefix": {
       "value": "10.0.0.0/16"
@@ -17,14 +17,24 @@
     "subnetAddressPrefix": {
       "value": "10.0.1.0/24"
     },
+    "bastionSubnetAddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "firewallSubnetAddressPrefix": {
+      "value": "10.0.3.0/24"
+    },
+
     "vmName": {
-      "value": "myVM"
+      "value": "VM-Ubu-AzFw"
     },
     "adminUsername": {
       "value": "test-admin"
     },
-    "elbName": {
-      "value": "myELB"
+    "firewallName": {
+      "value": "myFirewall"
+    },
+    "firewallPublicIPName": {
+      "value": "firewallPublicIP"
     },
     "bastionName": {
       "value": "myBastion"

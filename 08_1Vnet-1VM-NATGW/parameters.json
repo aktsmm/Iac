@@ -15,7 +15,7 @@
       "value": "10.0.1.0/24"
     },
     "vmName": {
-      "value": "myVM"
+      "value": "VM-Ubu-NATGW"
     },
     "adminUsername": {
       "value": "test-admin"
