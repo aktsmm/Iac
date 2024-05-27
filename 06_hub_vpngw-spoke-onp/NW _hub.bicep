@@ -7,7 +7,7 @@ param AzfwsubnetAddressPrefix string
 param nsgName string
 param bastionHostName string
 param azureBastionSubnetAddressPrefix string
-param firewallPublicIpName string = 'Azfw-pip'
+// param firewallPublicIpName string = 'Azfw-pip'
 param gatewaySubnetAddress string
 param gatewaypublicIpName string
 param hubvpnGatewayName string

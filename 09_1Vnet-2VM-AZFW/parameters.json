@@ -3,10 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vnetName": {
-      "value": "myVnet"
+      "value": "Vnet-AzFW"
     },
     "subnetName": {
       "value": "mySubnet"
+    },
+    "firewallSubnetName": {
+      "value": "AzureFirewallSubnet"
     },
     "vnetAddressPrefix": {
       "value": "10.0.0.0/16"
@@ -14,17 +17,27 @@
     "subnetAddressPrefix": {
       "value": "10.0.1.0/24"
     },
-    "vmName": {
-      "value": "VM-Ubu-NATGW"
+    "bastionSubnetAddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "firewallSubnetAddressPrefix": {
+      "value": "10.0.3.0/24"
+    },
+
+    "ubuvmName": {
+      "value": "VM-Ubu-AzFw"
+    },
+    "WinvmName": {
+      "value": "VM-Win-AzFw"
     },
     "adminUsername": {
       "value": "test-admin"
     },
-    "natGatewayName": {
-      "value": "myNatGateway"
+    "firewallName": {
+      "value": "myFirewall"
     },
-    "natPublicIPName": {
-      "value": "natPublicIP"
+    "firewallPublicIPName": {
+      "value": "firewallPublicIP"
     },
     "bastionName": {
       "value": "myBastion"
