@@ -17,8 +17,11 @@
     "subnetAddressPrefix": {
       "value": "10.0.1.0/24"
     },
-    "vmName": {
+    "ubuvmName": {
       "value": "VM-Ubu-ELB"
+    },
+    "WinvmName": {
+      "value": "VM-Win-ELB"
     },
     "adminUsername": {
       "value": "test-admin"

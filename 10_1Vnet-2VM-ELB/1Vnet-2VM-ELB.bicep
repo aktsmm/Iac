@@ -3,7 +3,8 @@ param vnetName string
 param subnetName string 
 param vnetAddressPrefix string 
 param subnetAddressPrefix string 
-param vmName string 
+param ubuvmName string 
+param WinvmName string
 param adminUsername string 
 @secure()
 param adminPassword string
@@ -94,8 +95,9 @@ resource bastionSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-05-01' ex
   name: bastionSubnetName
 }
 
-resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
-  name: '${vmName}-nic'
+
+resource windowsVMNic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
+  name: '${WinvmName}-nic'
   location: location
   properties: {
     ipConfigurations: [
@@ -112,12 +114,68 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   }
 }
 
-resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
-  name: vmName
+resource windowsVM 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+  name: WinvmName
   location: location
-  dependsOn: [
-    nic
-  ]
+  properties: {
+    hardwareProfile: {
+      vmSize: 'Standard_B2s'
+    }
+    storageProfile: {
+      osDisk: {
+        createOption: 'FromImage'
+        managedDisk: {
+          storageAccountType: 'StandardSSD_LRS'
+        }
+      }
+      imageReference: {
+        publisher: 'MicrosoftWindowsServer'
+        offer: 'WindowsServer'
+        sku: '2019-Datacenter'
+        version: 'latest'
+      }
+    }
+    osProfile: {
+      computerName: WinvmName
+      adminUsername: adminUsername
+      adminPassword: adminPassword
+    }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: windowsVMNic.id
+        }
+      ]
+    }
+  }
+}
+
+resource ubunic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
+  name: '${ubuvmName}-ubunic'
+  location: location
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        properties: {
+          subnet: {
+            id: subnet.id
+          }
+          privateIPAllocationMethod: 'Dynamic'
+        }
+      }
+    ]
+  }
+}
+
+resource ubuvm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+  name: ubuvmName
+  location: location
+  /**
+    dependsOn: [
+      ubunic
+    ]
+  */
   properties: {
     hardwareProfile: {
       vmSize: 'Standard_B2s'
@@ -137,14 +195,14 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       }
     }
     osProfile: {
-      computerName: vmName
+      computerName: ubuvmName
       adminUsername: adminUsername
       adminPassword: adminPassword
     }
     networkProfile: {
       networkInterfaces: [
         {
-          id: nic.id
+          id: ubunic.id
         }
       ]
     }
