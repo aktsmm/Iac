@@ -6,7 +6,7 @@
       "value": "japaneast"
     },
     "VnetAtype": {
-      "value": "WSB"
+      "value": "Web-test"
     },
     "vnetAAddressPrefix": {
       "value": "10.0.0.0/16"
@@ -18,7 +18,8 @@
       "value": "test-admin"
     },
     "adminPassword": {
-      "value": "P@ssw0rd!"
+      "value": "!qazxsw21478520"
     }
+    
   }
 }

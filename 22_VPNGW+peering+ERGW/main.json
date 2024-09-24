@@ -1,0 +1,565 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.29.47.4906",
+      "templateHash": "2765823428339345798"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "japaneast"
+    },
+    "vnetHubName": {
+      "type": "string",
+      "defaultValue": "Vnet-Hub"
+    },
+    "vnetSpokeName": {
+      "type": "string",
+      "defaultValue": "Vnet-Spoke"
+    },
+    "vnetVpnName": {
+      "type": "string",
+      "defaultValue": "Vnet-Spoke-VPN"
+    },
+    "vpnGatewayName": {
+      "type": "string",
+      "defaultValue": "VpnGw1"
+    },
+    "expressRouteGatewayName": {
+      "type": "string",
+      "defaultValue": "ERGW"
+    },
+    "bastionName": {
+      "type": "string",
+      "defaultValue": "AzureBastion"
+    },
+    "publicIPName": {
+      "type": "string",
+      "defaultValue": "VpnGWPIP"
+    },
+    "firewallPublicIPName": {
+      "type": "string",
+      "defaultValue": "FWPIP"
+    },
+    "vmHubName": {
+      "type": "string",
+      "defaultValue": "Hub-Win"
+    },
+    "vmSpokeName": {
+      "type": "string",
+      "defaultValue": "Spoke-Win"
+    },
+    "vnetHubAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.10.0.0/16"
+    },
+    "vnetSpokeAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.100.0.0/16"
+    },
+    "vnetVpnAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16"
+    },
+    "bastionSubnetName": {
+      "type": "string",
+      "defaultValue": "AzureBastionSubnet"
+    },
+    "bastionSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.10.2.0/24"
+    },
+    "vpnMainSubnetName": {
+      "type": "string",
+      "defaultValue": "GatewaySubnet"
+    },
+    "vpnMainSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24"
+    },
+    "hubMainSubnetName": {
+      "type": "string",
+      "defaultValue": "Hub-main-Subnet"
+    },
+    "hubMainSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.10.0.0/24"
+    },
+    "hubFirewallSubnetName": {
+      "type": "string",
+      "defaultValue": "AzureFirewallSubnet"
+    },
+    "hubFirewallSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.10.3.0/24"
+    },
+    "expressRouteGatewaySubnetName": {
+      "type": "string",
+      "defaultValue": "GatewaySubnet"
+    },
+    "expressRouteGatewaySubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.10.4.0/24"
+    },
+    "spokeMainSubnetName": {
+      "type": "string",
+      "defaultValue": "spoke-main-Subnet"
+    },
+    "spokeMainSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.100.0.0/24"
+    },
+    "adminUsername": {
+      "type": "string",
+      "defaultValue": "adminuser"
+    },
+    "adminPassword": {
+      "type": "string",
+      "defaultValue": "Password123!"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('vnetHubName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetHubAddressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('bastionSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('bastionSubnetPrefix')]"
+            }
+          },
+          {
+            "name": "[parameters('hubMainSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('hubMainSubnetPrefix')]"
+            }
+          },
+          {
+            "name": "[parameters('hubFirewallSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('hubFirewallSubnetPrefix')]"
+            }
+          },
+          {
+            "name": "[parameters('expressRouteGatewaySubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('expressRouteGatewaySubnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('vnetSpokeName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetSpokeAddressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('spokeMainSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('spokeMainSubnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('vnetVpnName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetVpnAddressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('vpnMainSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('vpnMainSubnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}-publicIP', parameters('expressRouteGatewayName'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworkGateways",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('expressRouteGatewayName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "erGatewayConfig",
+            "properties": {
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName')), '2022-09-01').subnets[3].id]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicIP', parameters('expressRouteGatewayName')))]"
+              }
+            }
+          }
+        ],
+        "gatewayType": "ExpressRoute",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "enableBgp": true
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicIP', parameters('expressRouteGatewayName')))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('publicIPName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworkGateways",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('vpnGatewayName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "vpngatewayconfig",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPName'))]"
+              },
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVpnName')), '2022-09-01').subnets[0].id]"
+              }
+            }
+          }
+        ],
+        "gatewayType": "Vpn",
+        "vpnType": "RouteBased",
+        "sku": {
+          "name": "VpnGw1",
+          "tier": "VpnGw1"
+        },
+        "enableBgp": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVpnName'))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}-publicIP', parameters('bastionName'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/bastionHosts",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('bastionName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "bastionIPConfig",
+            "properties": {
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName')), '2022-09-01').subnets[0].id]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicIP', parameters('bastionName')))]"
+              }
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicIP', parameters('bastionName')))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('firewallPublicIPName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/azureFirewalls",
+      "apiVersion": "2022-09-01",
+      "name": "AzureFirewall",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "name": "AZFW_VNet",
+          "tier": "Standard"
+        },
+        "ipConfigurations": [
+          {
+            "name": "firewallConfig",
+            "properties": {
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName')), '2022-09-01').subnets[2].id]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('firewallPublicIPName'))]"
+              }
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('firewallPublicIPName'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}-nic', parameters('vmHubName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName')), '2022-09-01').subnets[1].id]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}-nic', parameters('vmSpokeName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetSpokeName')), '2022-09-01').subnets[0].id]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetSpokeName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('vmHubName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_B2ms"
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmHubName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmHubName')))]"
+            }
+          ]
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2019-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmHubName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('vmSpokeName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_B2ms"
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmSpokeName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmSpokeName')))]"
+            }
+          ]
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2019-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmSpokeName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}/to-{1}', parameters('vnetHubName'), parameters('vnetSpokeName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetSpokeName'))]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetSpokeName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}/to-{1}', parameters('vnetSpokeName'), parameters('vnetHubName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}/to-{1}', parameters('vnetHubName'), parameters('vnetVpnName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVpnName'))]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetVpnName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "apiVersion": "2022-09-01",
+      "name": "[format('{0}/to-{1}', parameters('vnetVpnName'), parameters('vnetHubName'))]",
+      "properties": {
+        "remoteVirtualNetwork": {
+          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+        },
+        "allowVirtualNetworkAccess": true,
+        "allowForwardedTraffic": false,
+        "allowGatewayTransit": false,
+        "useRemoteGateways": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetHubName'))]"
+      ]
+    }
+  ]
+}
