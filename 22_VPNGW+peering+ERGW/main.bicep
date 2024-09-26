@@ -27,6 +27,14 @@ param spokeMainSubnetPrefix string = '10.100.0.0/24'
 param adminUsername string = 'adminuser'
 param adminPassword string = 'Password123!'  // セキュリティのため、セキュアなパラメータに変更することを推奨します
 
+// Next Action memo : nsgを作成してSubnetにアタッチする、Windows Server にはIIS をインストールして起動するようにする
+// # IISをインストール
+// Install-WindowsFeature -name Web-Server -IncludeManagementTools
+// # IISのサービスを開始
+// Start-Service -Name W3SVC
+// # IISサービスのスタートアップ設定を自動に変更
+// Set-Service -Name W3SVC -StartupType Automatic
+
 // VNet for Hub
 resource vnetHub 'Microsoft.Network/virtualNetworks@2022-09-01' = {
   name: vnetHubName
