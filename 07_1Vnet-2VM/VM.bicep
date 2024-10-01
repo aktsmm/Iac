@@ -10,8 +10,12 @@ param adminPassword string
 param osDiskStorageType string 
 param osdiskname string = '${vmName}-osdisk' // 文字列補間を使用して、VM名をosdisknameに指定しています
 param subnetId string
-param scriptUrl string = 'https://github.com/aktsmm/Scripts/blob/main/ps/Disable_IE%20ESC/disableIEESC.ps1'
+param scriptUrl string = 'https://raw.githubusercontent.com/aktsmm/Scripts/main/ps/Disable_IE%20ESC/disableIEESC.ps1'
 
+// osType パラメータを osImagePublisher の値に基づいて設定
+var osType = (osImagePublisher == 'MicrosoftWindowsServer') ? 'Windows' : 'Linux'
+
+// パブリックIPの作成
 resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
   name: '${vmName}-pip'
   location: location
@@ -20,6 +24,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
   }
 }
 
+// ネットワークインターフェースの作成
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-08-01' = {
   name: '${vmName}-nic'
   location: location
@@ -44,6 +49,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-08-01' = {
   }
 }
 
+// 仮想マシンの作成
 resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   name: vmName
   location: location
@@ -84,9 +90,10 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   }
 }
 
-// ここから追加: IE Enhanced Security Configurationを無効化するrunCommand
-resource customScript 'Microsoft.Compute/virtualMachines/extensions@2021-07-01' = if (contains(${vmName}.properties.storageProfile.imageReference.publisher, 'Windows')) {
-  name: '${vmName}/CustomScriptExtension'
+// OS タイプが Windows の場合に Custom Script Extension を適用する
+resource customScript 'Microsoft.Compute/virtualMachines/extensions@2021-07-01' = if (osType == 'Windows') {
+  name: 'CustomScriptExtension'
+  parent: vm
   location: location
   properties: {
     publisher: 'Microsoft.Compute'
@@ -99,7 +106,4 @@ resource customScript 'Microsoft.Compute/virtualMachines/extensions@2021-07-01' 
       commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File $(Split-Path -Leaf $fileUris[0])'
     }
   }
-  dependsOn: [
-    vm
-  ]
 }
