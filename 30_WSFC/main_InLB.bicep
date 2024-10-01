@@ -442,7 +442,7 @@ resource disableIEESCADVM 'Microsoft.Compute/virtualMachines/runCommands@2024-07
         Write-Output "IE Enhanced Security Configuration has been disabled successfully."
 
        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
-        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -Repository PSGallery -Force -Scope AllUsers -Confirm:$false -SkipPublisherCheck
 
       '''
     }
@@ -478,7 +478,7 @@ resource disableIEESCwsfcVm1 'Microsoft.Compute/virtualMachines/runCommands@2024
         Write-Output "IE Enhanced Security Configuration has been disabled successfully."
 
         # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
-        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -Repository PSGallery -Force -Scope AllUsers -Confirm:$false -SkipPublisherCheck
 
       '''
     }
@@ -511,7 +511,7 @@ resource disableIEESCwsfcVm2 'Microsoft.Compute/virtualMachines/runCommands@2024
         Write-Output "IE Enhanced Security Configuration has been disabled successfully."
 
         # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
-        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -Repository PSGallery -Force -Scope AllUsers -Confirm:$false -SkipPublisherCheck
 
 
       '''

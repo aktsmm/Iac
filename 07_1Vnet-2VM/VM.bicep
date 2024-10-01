@@ -108,8 +108,10 @@ resource disableIEESCVM 'Microsoft.Compute/virtualMachines/runCommands@2024-07-0
         Write-Output "IE Enhanced Security Configuration has been disabled successfully."
 
         # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
-        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
-
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Confirm:$false
+        Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name='Microsoft Azure CLI'" | ForEach-Object { $_.Uninstall() }
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi
+        Install-Module -Name Az -Repository PSGallery -Force -Scope AllUsers -Confirm:$false -SkipPublisherCheck
       '''
     }
     runAsUser: 'SYSTEM' // SYSTEMユーザー権限で実行
