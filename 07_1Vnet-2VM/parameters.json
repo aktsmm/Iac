@@ -6,7 +6,7 @@
       "value": "japaneast"
     },
     "VnetAtype": {
-      "value": "Web-test"
+      "value": "login-poc"
     },
     "vnetAAddressPrefix": {
       "value": "10.0.0.0/16"
