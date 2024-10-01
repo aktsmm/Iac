@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.25.53.49325",
-      "templateHash": "14261712379074469204"
+      "version": "0.30.23.60470",
+      "templateHash": "1274490161986387657"
     }
   },
   "parameters": {
@@ -84,8 +84,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "15143002361851330700"
+              "version": "0.30.23.60470",
+              "templateHash": "6664280245473277211"
             }
           },
           "parameters": {
@@ -200,8 +200,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "10485239406827616329"
+              "version": "0.30.23.60470",
+              "templateHash": "5169861328081532239"
             }
           },
           "parameters": {
@@ -315,6 +315,21 @@
               },
               "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2024-07-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'disableIEESCADVM')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "        # IE Enhanced Security Configurationを無効化するスクリプト\r\n        Write-Output \"Disabling IE Enhanced Security Configuration for Administrators and Users\"\r\n\r\n        # 管理者用のIE ESCを無効化\r\n        $AdminKey = 'HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\{A66A0D1F-9C7D-11D0-9155-00AA00C3EABA}'\r\n        Set-ItemProperty -Path $AdminKey -Name \"IsInstalled\" -Value 0\r\n\r\n        # ユーザー用のIE ESCを無効化\r\n        $UserKey = 'HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\{A66A0D20-9C7D-11D0-9155-00AA00C3EABA}'\r\n        Set-ItemProperty -Path $UserKey -Name \"IsInstalled\" -Value 0\r\n\r\n        # エクスプローラーを再起動して設定を反映\r\n        Stop-Process -Name explorer -Force\r\n\r\n        Write-Output \"IE Enhanced Security Configuration has been disabled successfully.\"\r\n\r\n        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール\r\n        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force\r\n\r\n      "
+                },
+                "runAsUser": "SYSTEM"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
               ]
             }
           ]
@@ -371,8 +386,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "10485239406827616329"
+              "version": "0.30.23.60470",
+              "templateHash": "5169861328081532239"
             }
           },
           "parameters": {
@@ -486,6 +501,21 @@
               },
               "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2024-07-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'disableIEESCADVM')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "        # IE Enhanced Security Configurationを無効化するスクリプト\r\n        Write-Output \"Disabling IE Enhanced Security Configuration for Administrators and Users\"\r\n\r\n        # 管理者用のIE ESCを無効化\r\n        $AdminKey = 'HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\{A66A0D1F-9C7D-11D0-9155-00AA00C3EABA}'\r\n        Set-ItemProperty -Path $AdminKey -Name \"IsInstalled\" -Value 0\r\n\r\n        # ユーザー用のIE ESCを無効化\r\n        $UserKey = 'HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\{A66A0D20-9C7D-11D0-9155-00AA00C3EABA}'\r\n        Set-ItemProperty -Path $UserKey -Name \"IsInstalled\" -Value 0\r\n\r\n        # エクスプローラーを再起動して設定を反映\r\n        Stop-Process -Name explorer -Force\r\n\r\n        Write-Output \"IE Enhanced Security Configuration has been disabled successfully.\"\r\n\r\n        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール\r\n        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force\r\n\r\n      "
+                },
+                "runAsUser": "SYSTEM"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
               ]
             }
           ]

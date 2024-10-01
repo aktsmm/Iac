@@ -85,7 +85,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 
 // ここから追加: IE Enhanced Security Configurationを無効化するrunCommand
 resource disableIEESCVM 'Microsoft.Compute/virtualMachines/runCommands@2024-07-01' = {
-  name: 'disableIEESCADVM'
+  name: 'disableIEESCVM'
   location: location
   parent: vm
   properties: {
@@ -107,8 +107,8 @@ resource disableIEESCVM 'Microsoft.Compute/virtualMachines/runCommands@2024-07-0
 
         Write-Output "IE Enhanced Security Configuration has been disabled successfully."
 
-        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール
-        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force
+        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
 
       '''
     }

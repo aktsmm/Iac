@@ -416,3 +416,106 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-03-01' = {
     ]
   }
 }
+
+// ここから追加: AD VMでIE Enhanced Security Configurationを無効化するrunCommand
+resource disableIEESCADVM 'Microsoft.Compute/virtualMachines/runCommands@2024-07-01' = {
+  name: 'disableIEESCADVM'
+  location: location
+  parent: adVm
+  properties: {
+    source: {
+      script: '''
+        # IE Enhanced Security Configurationを無効化するスクリプト
+        Write-Output "Disabling IE Enhanced Security Configuration for Administrators and Users"
+
+        # 管理者用のIE ESCを無効化
+        $AdminKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D1F-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
+
+        # ユーザー用のIE ESCを無効化
+        $UserKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D20-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
+
+        # エクスプローラーを再起動して設定を反映
+        Stop-Process -Name explorer -Force
+
+        Write-Output "IE Enhanced Security Configuration has been disabled successfully."
+
+       # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+
+      '''
+    }
+    runAsUser: 'SYSTEM' // SYSTEMユーザー権限で実行
+  }
+  dependsOn: [
+    adRunCommand // ADDSのインストール完了後に実行する
+  ]
+}
+
+// ここから追加: AD VMでIE Enhanced Security Configurationを無効化するrunCommand
+resource disableIEESCwsfcVm1 'Microsoft.Compute/virtualMachines/runCommands@2024-07-01' = {
+  name: 'DisableIEESCwsfcVm1'
+  location: location
+  parent: wsfcVm1
+  properties: {
+    source: {
+      script: '''
+        # IE Enhanced Security Configurationを無効化するスクリプト
+        Write-Output "Disabling IE Enhanced Security Configuration for Administrators and Users"
+
+        # 管理者用のIE ESCを無効化
+        $AdminKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D1F-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
+
+        # ユーザー用のIE ESCを無効化
+        $UserKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D20-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
+
+        # エクスプローラーを再起動して設定を反映
+        Stop-Process -Name explorer -Force
+
+        Write-Output "IE Enhanced Security Configuration has been disabled successfully."
+
+        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+
+      '''
+    }
+    runAsUser: 'SYSTEM' // SYSTEMユーザー権限で実行
+  }
+}
+
+// ここから追加: AD VMでIE Enhanced Security Configurationを無効化するrunCommand
+resource disableIEESCwsfcVm2 'Microsoft.Compute/virtualMachines/runCommands@2024-07-01' = {
+  name: 'DisableIEESCwsfcVm2'
+  location: location
+  parent: wsfcVm2
+  properties: {
+    source: {
+      script: '''
+        # IE Enhanced Security Configurationを無効化するスクリプト
+        Write-Output "Disabling IE Enhanced Security Configuration for Administrators and Users"
+
+        # 管理者用のIE ESCを無効化
+        $AdminKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D1F-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
+
+        # ユーザー用のIE ESCを無効化
+        $UserKey = 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A66A0D20-9C7D-11D0-9155-00AA00C3EABA}'
+        Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
+
+        # エクスプローラーを再起動して設定を反映
+        Stop-Process -Name explorer -Force
+
+        Write-Output "IE Enhanced Security Configuration has been disabled successfully."
+
+        # Azure CLI と Azure PowerShell をワンコマンドでダウンロード＆インストール（確認プロンプト自動応答）
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLISetup.msi; Start-Process msiexec.exe -ArgumentList '/I AzureCLISetup.msi /quiet /norestart' -Wait; Remove-Item -Force .\AzureCLISetup.msi; Install-Module -Name Az -AllowClobber -Scope CurrentUser -Force -Confirm:$false -SkipPublisherCheck
+
+
+      '''
+    }
+    runAsUser: 'SYSTEM' // SYSTEMユーザー権限で実行
+  }
+}
