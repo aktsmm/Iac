@@ -45,3 +45,30 @@ Public IPもついてます。片方のVnetはWindows Server 2019 、もう片�
 
 
 ![image](https://github.com/aktsmm/Iac/assets/71251920/9b03ffce-273d-42ee-bb2d-f552eace5d36)
+## パラメーター
+デプロイするときは[パラメーターファイル](https://github.com/aktsmm/Iac/blob/main/01_2Vnet/parameters.json)をコピーして、適宜編集して貼り付けると楽だと思います。
++ **パスワード**パラメーターは必ず適切な値を入れる必要があります
+![2023-10-30_17h03_57](https://github.com/aktsmm/Iac/assets/71251920/044b9c29-d358-4b5b-9884-c81157fd7961)
+
+## VM拡張設定
+
+### Apache のインストール (Ubuntu VM)
+Ubuntu VM 上に Apache2 をインストールし、Apache を起動し、インデックスページにカスタムメッセージを表示します。次のスクリプトが実行されます：
+
+```bash
+sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt-get update -y && sudo apt-get install -y apache2 && sudo systemctl start apache2 && sudo systemctl enable apache2 && echo "Hi, this is Apache2 on $(hostname) by Apache2" | sudo tee /var/www/html/index.html
+```
+
+このスクリプトは、Apache のインストール後にサービスを起動し、デフォルトのインデックスページにホスト名を表示するカスタムメッセージを追加します。
+
+### IIS のインストール (Windows Server VM)
+
+
+Windows Server 2019 VM 上に IIS をインストールし、IIS のデフォルトページにカスタムメッセージを表示します。次のスクリプトが実行されます：
+```PowerShell
+powershell -Command "Install-WindowsFeature -name Web-Server -IncludeManagementTools; $iisstart_path = Join-Path $Env:SystemDrive 'inetpub\\wwwroot\\iisstart.htm'; Remove-Item $iisstart_path; Add-Content -Path $iisstart_path -Value 'Hi, this is IIS on $Env:ComputerName'"
+```
+
+このスクリプトは IIS をインストールし、IIS のスタートページにホスト名を含むメッセージを表示します。
+
+これで、Apache と IIS のインストール手順が README に反映され、説明が追加されました。

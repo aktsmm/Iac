@@ -9,7 +9,7 @@
       "value": "Vnet-A"
     },
     "vnetAAddressPrefix": {
-      "value": "10.0.0.0/16"
+      "value": "10.10.0.0/16"
     },
     "subnetAName": {
       "value": "A-default-subnet"
@@ -21,13 +21,13 @@
       "value": "NSG-B"
     },
     "subnetAAddressPrefix": {
-      "value": "10.0.1.0/24"
+      "value": "10.10.1.0/24"
     },
     "vmAUbuntuName": {
-      "value": "VM-Ubuntu-Hub"
+      "value": "VM-A-Ubu"
     },
     "vmBWin2019Name": {
-      "value": "VM-Win2019-Onp"
+      "value": "VM-B-Win"
     },
     "adminUsername": {
       "value": "test-admin"
@@ -39,13 +39,13 @@
       "value": "Vnet-B"
     },
     "vnetBAddressPrefix": {
-      "value": "10.1.0.0/16"
+      "value": "10.11.0.0/16"
     },
     "subnetBName": {
       "value": "B-default-subnet"
     },
     "subnetBAddressPrefix": {
-      "value": "10.1.1.0/24"
+      "value": "10.11.1.0/24"
     }
   }
 }

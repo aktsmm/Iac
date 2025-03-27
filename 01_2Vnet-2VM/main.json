@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.22.6.54827",
-      "templateHash": "4105692563498931795"
+      "version": "0.33.93.31351",
+      "templateHash": "16861876347840076256"
     }
   },
   "parameters": {
@@ -57,6 +57,152 @@
   },
   "resources": [
     {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-HTTP-80', parameters('nsgAName'))]",
+      "properties": {
+        "priority": 1000,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "80",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-HTTPS-443', parameters('nsgAName'))]",
+      "properties": {
+        "priority": 1001,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-SSH-22', parameters('nsgAName'))]",
+      "properties": {
+        "priority": 1002,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-HTTP-80', parameters('nsgBName'))]",
+      "properties": {
+        "priority": 1000,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "80",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-HTTPS-443', parameters('nsgBName'))]",
+      "properties": {
+        "priority": 1001,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}/Allow-RDP-3389', parameters('nsgBName'))]",
+      "properties": {
+        "priority": 1002,
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2021-03-01",
+      "name": "[format('{0}/installApache', parameters('vmAUbuntuName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [],
+          "commandToExecute": "sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt-get update -y && sudo apt-get install -y apache2 && sudo systemctl start apache2 && sudo systemctl enable apache2 && echo \"Hi, this is Apache2 on $(hostname) by Apache2\" | sudo tee /var/www/html/index.html"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'vmModuleA_Ubuntu')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2021-03-01",
+      "name": "[format('{0}/installIIS', parameters('vmBWin2019Name'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [],
+          "commandToExecute": "powershell -Command \"Install-WindowsFeature -name Web-Server -IncludeManagementTools; $iisstart_path = Join-Path $Env:SystemDrive 'inetpub\\wwwroot\\iisstart.htm'; Remove-Item $iisstart_path; Add-Content -Path $iisstart_path -Value \\\"Hi, this is IIS on $Env:ComputerName\\\"\""
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'vmModuleB_Windows')]"
+      ]
+    },
+    {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
       "name": "networkModuleA",
@@ -91,8 +237,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "14801996037527978910"
+              "version": "0.33.93.31351",
+              "templateHash": "9211706405509541899"
             }
           },
           "parameters": {
@@ -195,8 +341,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "14801996037527978910"
+              "version": "0.33.93.31351",
+              "templateHash": "9211706405509541899"
             }
           },
           "parameters": {
@@ -287,7 +433,7 @@
             "value": "0001-com-ubuntu-server-focal"
           },
           "osImagePublisher": {
-            "value": "Canonical"
+            "value": "canonical"
           },
           "osImageSku": {
             "value": "20_04-lts"
@@ -311,8 +457,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "3662061893620753164"
+              "version": "0.33.93.31351",
+              "templateHash": "6099238387434648382"
             }
           },
           "parameters": {
@@ -432,7 +578,10 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]"
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleA')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-SSH-22', parameters('nsgAName')), '/')[0], split(format('{0}/Allow-SSH-22', parameters('nsgAName')), '/')[1])]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-HTTPS-443', parameters('nsgAName')), '/')[0], split(format('{0}/Allow-HTTPS-443', parameters('nsgAName')), '/')[1])]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-HTTP-80', parameters('nsgAName')), '/')[0], split(format('{0}/Allow-HTTP-80', parameters('nsgAName')), '/')[1])]"
       ]
     },
     {
@@ -482,8 +631,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.22.6.54827",
-              "templateHash": "3662061893620753164"
+              "version": "0.33.93.31351",
+              "templateHash": "6099238387434648382"
             }
           },
           "parameters": {
@@ -603,7 +752,10 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]"
+        "[resourceId('Microsoft.Resources/deployments', 'networkModuleB')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-RDP-3389', parameters('nsgBName')), '/')[0], split(format('{0}/Allow-RDP-3389', parameters('nsgBName')), '/')[1])]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-HTTPS-443', parameters('nsgBName')), '/')[0], split(format('{0}/Allow-HTTPS-443', parameters('nsgBName')), '/')[1])]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', split(format('{0}/Allow-HTTP-80', parameters('nsgBName')), '/')[0], split(format('{0}/Allow-HTTP-80', parameters('nsgBName')), '/')[1])]"
       ]
     }
   ]

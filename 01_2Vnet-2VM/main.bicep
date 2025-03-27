@@ -13,11 +13,9 @@ param nsgBName string
 
 param vmAUbuntuName string
 param vmBWin2019Name string
-
 param adminUsername string
 @secure()
 param adminPassword string
-
 
 module networkModuleA 'NW.bicep' = {
   name: 'networkModuleA'
@@ -43,6 +41,108 @@ module networkModuleB 'NW.bicep' = {
   }
 }
 
+resource nsgRuleA80 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgAName}/Allow-HTTP-80'
+  properties: {
+    priority: 1000
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '80'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleA
+  ]
+}
+
+resource nsgRuleA443 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgAName}/Allow-HTTPS-443'
+  properties: {
+    priority: 1001
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '443'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleA
+  ]
+}
+
+resource nsgRuleA22 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgAName}/Allow-SSH-22'
+  properties: {
+    priority: 1002
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '22'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleA
+  ]
+}
+
+resource nsgRuleB80 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgBName}/Allow-HTTP-80'
+  properties: {
+    priority: 1000
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '80'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleB
+  ]
+}
+
+resource nsgRuleB443 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgBName}/Allow-HTTPS-443'
+  properties: {
+    priority: 1001
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '443'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleB
+  ]
+}
+
+resource nsgRuleB3389 'Microsoft.Network/networkSecurityGroups/securityRules@2020-11-01' = {
+  name: '${nsgBName}/Allow-RDP-3389'
+  properties: {
+    priority: 1002
+    direction: 'Inbound'
+    access: 'Allow'
+    protocol: 'Tcp'
+    sourcePortRange: '*'
+    destinationPortRange: '3389'
+    sourceAddressPrefix: '*'
+    destinationAddressPrefix: '*'
+  }
+  dependsOn: [
+    networkModuleB
+  ]
+}
+
 module vmModuleA_Ubuntu 'VM.bicep' = {
   name: 'vmModuleA_Ubuntu'
   params: {
@@ -59,6 +159,9 @@ module vmModuleA_Ubuntu 'VM.bicep' = {
   }
   dependsOn: [
     networkModuleA
+    nsgRuleA80
+    nsgRuleA443
+    nsgRuleA22
   ]
 }
 
@@ -78,5 +181,44 @@ module vmModuleB_Windows 'VM.bicep' = {
   }
   dependsOn: [
     networkModuleB
+    nsgRuleB80
+    nsgRuleB443
+    nsgRuleB3389
+  ]
+}
+
+resource installApache 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: '${vmAUbuntuName}/installApache'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Azure.Extensions'
+    type: 'CustomScript'
+    typeHandlerVersion: '2.0'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: []
+      commandToExecute: 'sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt-get update -y && sudo apt-get install -y apache2 && sudo systemctl start apache2 && sudo systemctl enable apache2 && echo "Hi, this is Apache2 on $(hostname) by Apache2" | sudo tee /var/www/html/index.html'
+    }
+  }
+  dependsOn: [
+    vmModuleA_Ubuntu
+  ]
+}
+
+resource installIIS 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: '${vmBWin2019Name}/installIIS'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: []
+      commandToExecute: 'powershell -Command "Install-WindowsFeature -name Web-Server -IncludeManagementTools; $iisstart_path = Join-Path $Env:SystemDrive \'inetpub\\wwwroot\\iisstart.htm\'; Remove-Item $iisstart_path; Add-Content -Path $iisstart_path -Value \\"Hi, this is IIS on $Env:ComputerName\\""'
+    }
+  }
+  dependsOn: [
+    vmModuleB_Windows
   ]
 }
