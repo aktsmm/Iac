@@ -6,8 +6,8 @@ param vnetAddressPrefix string
 param subnetAddressPrefix string  
 param bastionSubnetAddressPrefix string  
 param firewallSubnetAddressPrefix string  
-param ubuvmName string  
-param WinvmName string 
+param WebSrvWinName string 
+param WebSrvubuname string
 param adminUsername string  
 @secure()  
 param adminPassword string  
@@ -61,13 +61,15 @@ resource firewallPublicIP 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
 resource bastionPublicIP 'Microsoft.Network/publicIPAddresses@2022-05-01' = {  
   name: bastionPublicIPName  
   location: location  
-  sku: {  
-    name: 'Standard'  
+  sku: {
+    name: 'standard'
   }  
   properties: {  
     publicIPAllocationMethod: 'Static'  
   }  
 }  
+
+
   
 resource firewall 'Microsoft.Network/azureFirewalls@2022-05-01' = {  
   name: firewallName  
@@ -116,8 +118,8 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-05-01' existing 
   name: subnetName  
 }  
 
-resource windowsVMNic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
-  name: '${WinvmName}-nic'
+resource WebSrvWinNic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
+  name: '${WebSrvWinName}-nic'
   location: location
   properties: {
     ipConfigurations: [
@@ -134,8 +136,8 @@ resource windowsVMNic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   }
 }
 
-resource windowsVM 'Microsoft.Compute/virtualMachines@2022-03-01' = {
-  name: WinvmName
+resource WebSrvWin 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+  name: WebSrvWinName
   location: location
   properties: {
     hardwareProfile: {
@@ -156,103 +158,61 @@ resource windowsVM 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       }
     }
     osProfile: {
-      computerName: WinvmName
+      computerName: WebSrvWinName
       adminUsername: adminUsername
       adminPassword: adminPassword
     }
     networkProfile: {
       networkInterfaces: [
         {
-          id: windowsVMNic.id
+          id: WebSrvWinNic.id
         }
       ]
     }
   }
 }
 
-resource ubunic 'Microsoft.Network/networkInterfaces@2022-05-01' = {  
-  name: '${ubuvmName}-nic'  
-  location: location  
-  properties: {  
-    ipConfigurations: [  
-      {  
-        name: 'ipconfig1'  
-        properties: {  
-          subnet: {  
-            id: subnet.id  
-          }  
-          privateIPAllocationMethod: 'Dynamic'  
-        }  
-      }  
-    ]  
-  }  
-}  
+resource WinVMDebugScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
+  name: '${WebSrvWin.name}/customScript'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: [
+        'https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/IIS-DebugPortal_Setup/IIS_DebugPortal.ps1'
+      ]
+      commandToExecute: 'powershell -ExecutionPolicy Bypass -File IIS_DebugPortal.ps1'
+    }
+  }
+  dependsOn: [
+    WebSrvWin
+  ]
+}
+
   
-resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {  
-  name: ubuvmName  
-  location: location  
-  /**
-    dependsOn: [  
-      nic  
-    ]
-  */  
-  properties: {  
-    hardwareProfile: {  
-      vmSize: 'Standard_B2s'  
-    }  
-    storageProfile: {  
-      osDisk: {  
-        createOption: 'FromImage'  
-        managedDisk: {  
-          storageAccountType: 'StandardSSD_LRS'  
-        }  
-      }  
-      imageReference: {  
-        publisher: 'Canonical'  
-        offer: '0001-com-ubuntu-server-focal'  
-        sku: '20_04-lts'  
-        version: 'latest'  
-      }  
-    }  
-    osProfile: {  
-      computerName: ubuvmName  
-      adminUsername: adminUsername  
-      adminPassword: adminPassword  
-    }  
-    networkProfile: {  
-      networkInterfaces: [  
-        {  
-          id: ubunic.id  
-        }  
-      ]  
-    }  
-  }  
-}  
+
   
-resource bastionSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-05-01' existing = {  
-  parent: vnet  
-  name: bastionSubnetName  
-}  
-  
-resource bastion 'Microsoft.Network/bastionHosts@2022-05-01' = {  
-  name: bastionName  
-  location: location  
-  properties: {  
-    ipConfigurations: [  
-      {  
-        name: 'bastionIpConfig'  
-        properties: {  
-          subnet: {  
-            id: bastionSubnet.id  
-          }  
-          publicIPAddress: {  
-            id: bastionPublicIP.id  
-          }  
-        }  
-      }  
-    ]  
-  }  
-}  
+resource bastion 'Microsoft.Network/bastionHosts@2022-05-01' = {
+  name: bastionName
+  location: location
+  sku: {
+    name: 'Developer'
+  }
+  properties: any({
+    virtualNetwork: {
+      id: vnet.id
+    }
+  })
+  dependsOn: [
+    vnet
+  ]
+}
+
+
+
   
 resource routeTable 'Microsoft.Network/routeTables@2022-05-01' = {  
   name: '${vnetName}-routeTable'  
@@ -281,3 +241,79 @@ resource routeTableAssociation 'Microsoft.Network/virtualNetworks/subnets@2022-0
     }  
   }  
 }  
+resource WebSrvubuNic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
+  name: 'WebSrvubu-nic'
+  location: location
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        properties: {
+          subnet: {
+            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, subnetName)
+          }
+          privateIPAllocationMethod: 'Dynamic'
+        }
+      }
+    ]
+  }
+}
+
+resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+  name: 'WebSrvubu'
+  location: location
+  properties: {
+    hardwareProfile: {
+      vmSize: 'Standard_B2s'
+    }
+    storageProfile: {
+      osDisk: {
+        createOption: 'FromImage'
+        managedDisk: {
+          storageAccountType: 'StandardSSD_LRS'
+        }
+      }
+      imageReference: {
+        publisher: 'Canonical'
+        offer: '0001-com-ubuntu-server-focal'
+        sku: '20_04-lts'
+        version: 'latest'
+      }
+    }
+    osProfile: {
+      computerName:  WebSrvubuname
+      adminUsername: adminUsername
+      adminPassword: adminPassword
+    }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: WebSrvubuNic.id
+        }
+      ]
+    }
+  }
+  dependsOn: [
+    WebSrvubuNic
+  ]
+}
+
+resource WebSrvubuScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
+  name: 'WebSrvubu/customScript'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Azure.Extensions'
+    type: 'CustomScript'
+    typeHandlerVersion: '2.1'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: [
+        'https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/bash/Make_Squid_nginx_http(s)Srv/setup-squid-nginx.sh'
+      ]
+      commandToExecute: 'bash setup-squid-nginx.sh'  
+    }
+  }
+  dependsOn: [
+    WebSrvubu
+  ]
+}

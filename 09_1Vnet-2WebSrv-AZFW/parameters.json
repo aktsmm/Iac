@@ -23,12 +23,11 @@
     "firewallSubnetAddressPrefix": {
       "value": "10.0.3.0/24"
     },
-
-    "ubuvmName": {
-      "value": "VM-Ubu-AzFw"
+    "WebSrvubuname": {
+      "value": "Ubuginx-Fw"
     },
-    "WinvmName": {
-      "value": "VM-Win-AzFw"
+    "WebSrvWinName": {
+      "value": "IIS-Fw"
     },
     "adminUsername": {
       "value": "test-admin"

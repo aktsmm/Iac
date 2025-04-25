@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.27.1.19265",
-      "templateHash": "4156585241138331292"
+      "version": "0.34.44.8038",
+      "templateHash": "5252736566471405953"
     }
   },
   "parameters": {
@@ -35,7 +35,10 @@
     "firewallSubnetAddressPrefix": {
       "type": "string"
     },
-    "vmName": {
+    "WebSrvWinName": {
+      "type": "string"
+    },
+    "WebSrvubuname": {
       "type": "string"
     },
     "adminUsername": {
@@ -112,7 +115,7 @@
       "name": "[parameters('bastionPublicIPName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "Standard"
+        "name": "standard"
       },
       "properties": {
         "publicIPAllocationMethod": "Static"
@@ -174,7 +177,7 @@
     {
       "type": "Microsoft.Network/networkInterfaces",
       "apiVersion": "2022-05-01",
-      "name": "[format('{0}-nic', parameters('vmName'))]",
+      "name": "[format('{0}-nic', parameters('WebSrvWinName'))]",
       "location": "[parameters('location')]",
       "properties": {
         "ipConfigurations": [
@@ -196,7 +199,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2022-03-01",
-      "name": "[parameters('vmName')]",
+      "name": "[parameters('WebSrvWinName')]",
       "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
@@ -210,27 +213,48 @@
             }
           },
           "imageReference": {
-            "publisher": "Canonical",
-            "offer": "0001-com-ubuntu-server-focal",
-            "sku": "20_04-lts",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2019-Datacenter",
             "version": "latest"
           }
         },
         "osProfile": {
-          "computerName": "[parameters('vmName')]",
+          "computerName": "[parameters('WebSrvWinName')]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvWinName')))]"
             }
           ]
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvWinName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "[format('{0}/customScript', parameters('WebSrvWinName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/IIS-DebugPortal_Setup/IIS_DebugPortal.ps1"
+          ],
+          "commandToExecute": "powershell -ExecutionPolicy Bypass -File IIS_DebugPortal.ps1"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvWinName'))]"
       ]
     },
     {
@@ -238,25 +262,10 @@
       "apiVersion": "2022-05-01",
       "name": "[parameters('bastionName')]",
       "location": "[parameters('location')]",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "bastionIpConfig",
-            "properties": {
-              "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('bastionSubnetName'))]"
-              },
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('bastionPublicIPName'))]"
-              }
-            }
-          }
-        ]
+      "sku": {
+        "name": "Developer"
       },
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('bastionPublicIPName'))]",
-        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
-      ]
+      "properties": {}
     },
     {
       "type": "Microsoft.Network/routeTables",
@@ -292,6 +301,86 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/routeTables', format('{0}-routeTable', parameters('vnetName')))]",
         "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2022-05-01",
+      "name": "WebSrvubu-nic",
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2022-03-01",
+      "name": "WebSrvubu",
+      "location": "[parameters('location')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_B2s"
+        },
+        "storageProfile": {
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS"
+            }
+          },
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "0001-com-ubuntu-server-focal",
+            "sku": "20_04-lts",
+            "version": "latest"
+          }
+        },
+        "osProfile": {
+          "computerName": "[parameters('WebSrvubuname')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'WebSrvubu-nic')]"
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', 'WebSrvubu-nic')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "WebSrvubu/customScript",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/bash/Make_Squid_nginx_http(s)Srv/setup-squid-nginx.sh"
+          ],
+          "commandToExecute": "bash setup-squid-nginx.sh"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', 'WebSrvubu')]"
       ]
     }
   ]
