@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "15873571278902346570"
+      "templateHash": "5081079866453656297"
     }
   },
   "parameters": {
@@ -395,13 +395,15 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvubuname')))]"
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvubuname')))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('WebSrvubuname')))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2022-03-01",
-      "name": "WebSrvubu/customScript",
+      "name": "[format('{0}/customScript', parameters('WebSrvubuname'))]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
