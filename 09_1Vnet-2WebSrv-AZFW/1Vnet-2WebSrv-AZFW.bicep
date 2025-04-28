@@ -315,6 +315,7 @@ resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       ]
     }
   }
+
   dependsOn: [
     WebSrvubuNic
     WebSrvubuPublicIP
@@ -323,7 +324,7 @@ resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 }
 
 resource WebSrvubuScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
-  name: 'WebSrvubu/customScript'
+  name: '${WebSrvubu.name}/customScript'
   location: location
   properties: {
     publisher: 'Microsoft.Azure.Extensions'
