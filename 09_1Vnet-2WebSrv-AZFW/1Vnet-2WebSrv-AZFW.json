@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "5081079866453656297"
+      "templateHash": "17369515081875222330"
     }
   },
   "parameters": {
@@ -396,14 +396,13 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
-        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvubuname')))]",
-        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('WebSrvubuname')))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('WebSrvubuname')))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2022-03-01",
-      "name": "[format('{0}/customScript', parameters('WebSrvubuname'))]",
+      "name": "[format('{0}/{1}', parameters('WebSrvubuname'), 'customScript')]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -424,7 +423,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2022-03-01",
-      "name": "[format('{0}/customScript', parameters('WebSrvWinName'))]",
+      "name": "[format('{0}/{1}', parameters('WebSrvWinName'), 'customScript-debugportal')]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.Compute",
@@ -440,6 +439,72 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvWinName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "[format('{0}/{1}', parameters('WebSrvWinName'), 'customScript-setupguijap')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/Setup-WinGUI_Jap/Setup-WinGUI_Jap.ps1"
+          ],
+          "commandToExecute": "powershell -ExecutionPolicy Bypass -File Setup-WinGUI_Jap.ps1"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvWinName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('WebSrvWinName'), 'customScript-debugportal')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "[format('{0}/{1}', parameters('WebSrvWinName'), 'customScript-setupguiddefaults')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/Setup-WinGuiDefaults/Setup-WinGuiDefaults.ps1"
+          ],
+          "commandToExecute": "powershell -ExecutionPolicy Bypass -File Setup-WinGuiDefaults.ps1"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvWinName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('WebSrvWinName'), 'customScript-setupguijap')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "[format('{0}/{1}', parameters('WebSrvWinName'), 'customScript-setupdefaultapp')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.10",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/Setup_default-App/Setup_default-app.ps1"
+          ],
+          "commandToExecute": "powershell -ExecutionPolicy Bypass -File Setup_default-app.ps1"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvWinName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('WebSrvWinName'), 'customScript-setupguiddefaults')]"
       ]
     },
     {
