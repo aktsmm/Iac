@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "14125966928511058457"
+      "templateHash": "15873571278902346570"
     }
   },
   "parameters": {
@@ -361,7 +361,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2022-03-01",
-      "name": "WebSrvubu",
+      "name": "[parameters('WebSrvubuname')]",
       "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
@@ -416,7 +416,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', 'WebSrvubu')]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebSrvubuname'))]"
       ]
     },
     {

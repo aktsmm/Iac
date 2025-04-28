@@ -282,7 +282,7 @@ resource WebSrvWin 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 }
 
 resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
-  name: 'WebSrvubu'
+  name: WebSrvubuname
   location: location
   properties: {
     hardwareProfile: {

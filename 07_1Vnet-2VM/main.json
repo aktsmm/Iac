@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.30.23.60470",
-      "templateHash": "15950729178382979929"
+      "version": "0.34.44.8038",
+      "templateHash": "7197898987786768959"
     }
   },
   "parameters": {
@@ -84,8 +84,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.30.23.60470",
-              "templateHash": "6664280245473277211"
+              "version": "0.34.44.8038",
+              "templateHash": "13553136380704365769"
             }
           },
           "parameters": {
@@ -200,8 +200,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.30.23.60470",
-              "templateHash": "7865870791627258271"
+              "version": "0.34.44.8038",
+              "templateHash": "7143104751435442273"
             }
           },
           "parameters": {
@@ -254,7 +254,7 @@
                 "name": "Standard"
               },
               "properties": {
-                "publicIPAllocationMethod": "Dynamic"
+                "publicIPAllocationMethod": "static"
               }
             },
             {
@@ -395,8 +395,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.30.23.60470",
-              "templateHash": "7865870791627258271"
+              "version": "0.34.44.8038",
+              "templateHash": "7143104751435442273"
             }
           },
           "parameters": {
@@ -449,7 +449,7 @@
                 "name": "Standard"
               },
               "properties": {
-                "publicIPAllocationMethod": "Dynamic"
+                "publicIPAllocationMethod": "static"
               }
             },
             {
