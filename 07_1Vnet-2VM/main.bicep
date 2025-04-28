@@ -41,9 +41,6 @@ module vmModuleA_Ubuntu 'VM.bicep' = {
     osDiskStorageType:'StandardSSD_LRS'
     subnetId: networkModuleA.outputs.subnetId
   }
-  dependsOn: [
-    networkModuleA
-  ]
 }
 
 
@@ -61,8 +58,5 @@ module vmModuleB_Windows 'VM.bicep' = {
     osDiskStorageType: 'StandardSSD_LRS'
     subnetId: networkModuleA.outputs.subnetId
   }
-  dependsOn: [
-    networkModuleA
-  ]
 }
 

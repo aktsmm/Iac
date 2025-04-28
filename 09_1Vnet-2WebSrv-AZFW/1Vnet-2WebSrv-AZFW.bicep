@@ -317,14 +317,13 @@ resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   }
 
   dependsOn: [
-    WebSrvubuNic
-    WebSrvubuPublicIP
     vnet
   ]
 }
 
 resource WebSrvubuScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
-  name: '${WebSrvubu.name}/customScript'
+  parent: WebSrvubu
+  name: 'customScript'
   location: location
   properties: {
     publisher: 'Microsoft.Azure.Extensions'
@@ -338,13 +337,11 @@ resource WebSrvubuScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-0
       commandToExecute: 'bash setup-squid-nginx.sh'
     }
   }
-  dependsOn: [
-    WebSrvubu
-  ]
 }
 
 resource WinVMDebugScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
-  name: '${WebSrvWin.name}/customScript'
+  parent: WebSrvWin
+  name: 'customScript-setupall'
   location: location
   properties: {
     publisher: 'Microsoft.Compute'
@@ -354,14 +351,16 @@ resource WinVMDebugScript 'Microsoft.Compute/virtualMachines/extensions@2022-03-
     settings: {
       fileUris: [
         'https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/IIS-DebugPortal_Setup/IIS_DebugPortal.ps1'
+        'https://raw.githubusercontent.com/aktsmm/Scripts/refs/heads/main/ps/Setup-WinGuiDefaults/Setup-WinGuiDefaults.ps1'
       ]
-      commandToExecute: 'powershell -ExecutionPolicy Bypass -File IIS_DebugPortal.ps1'
+      commandToExecute: '''
+powershell -ExecutionPolicy Bypass -Command "& { .\IIS_DebugPortal.ps1; .\Setup-WinGuiDefaults.ps1 }"
+'''
+
     }
   }
-  dependsOn: [
-    WebSrvWin
-  ]
 }
+
 
 resource bastion 'Microsoft.Network/bastionHosts@2022-05-01' = {
   name: bastionName
@@ -374,9 +373,6 @@ resource bastion 'Microsoft.Network/bastionHosts@2022-05-01' = {
       id: vnet.id
     }
   })
-  dependsOn: [
-    vnet
-  ]
 }
 
 resource routeTable 'Microsoft.Network/routeTables@2022-05-01' = {
