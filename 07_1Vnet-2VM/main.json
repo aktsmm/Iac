@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.34.44.8038",
-      "templateHash": "7197898987786768959"
+      "templateHash": "8058243468581586888"
     }
   },
   "parameters": {
@@ -85,7 +85,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.34.44.8038",
-              "templateHash": "13553136380704365769"
+              "templateHash": "4610172970861669702"
             }
           },
           "parameters": {
@@ -106,6 +106,10 @@
             },
             "nsgName": {
               "type": "string"
+            },
+            "bastionName": {
+              "type": "string",
+              "defaultValue": "bastionDev"
             }
           },
           "resources": [
@@ -142,6 +146,24 @@
               "apiVersion": "2023-05-01",
               "name": "[parameters('nsgName')]",
               "location": "[parameters('location')]"
+            },
+            {
+              "type": "Microsoft.Network/bastionHosts",
+              "apiVersion": "2022-05-01",
+              "name": "[parameters('bastionName')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "Developer"
+              },
+              "properties": {
+                "virtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+              ]
             }
           ],
           "outputs": {
