@@ -317,6 +317,8 @@ resource WebSrvubu 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   }
   dependsOn: [
     WebSrvubuNic
+    WebSrvubuPublicIP
+    vnet
   ]
 }
 
