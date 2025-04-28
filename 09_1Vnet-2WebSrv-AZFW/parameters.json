@@ -39,7 +39,7 @@
       "value": "firewallPublicIP"
     },
     "bastionName": {
-      "value": "myBastion"
+      "value": "Bastion-Dev"
     },
     "bastionPublicIPName": {
       "value": "bastionPublicIP"
