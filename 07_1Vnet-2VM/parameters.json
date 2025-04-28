@@ -6,19 +6,19 @@
       "value": "japaneast"
     },
     "VnetAtype": {
-      "value": "login-poc"
+      "value": "Client"
     },
     "vnetAAddressPrefix": {
-      "value": "10.0.0.0/16"
+      "value": "10.1.0.0/16"
     },
     "subnetAAddressPrefix": {
-      "value": "10.0.0.0/24"
+      "value": "10.1.0.0/24"
     },
     "adminUsername": {
       "value": "test-admin"
     },
     "adminPassword": {
-      "value": "!qazxsw21478520"
+      "value": "P@ssw0rd!"
     }
     
   }
