@@ -12,22 +12,22 @@
       "value": "AzureFirewallSubnet"
     },
     "vnetAddressPrefix": {
-      "value": "10.0.0.0/16"
+      "value": "10.100.0.0/16"
     },
     "subnetAddressPrefix": {
-      "value": "10.0.1.0/24"
+      "value": "10.100.1.0/24"
     },
     "bastionSubnetAddressPrefix": {
-      "value": "10.0.2.0/24"
+      "value": "10.100.2.0/24"
     },
     "firewallSubnetAddressPrefix": {
-      "value": "10.0.3.0/24"
+      "value": "10.100.3.0/24"
     },
     "WebSrvubuname": {
-      "value": "Fw-Nginx"
+      "value": "INT-Ubu"
     },
     "WebSrvWinName": {
-      "value": "Fw-IIS"
+      "value": "UNT-Win"
     },
     "adminUsername": {
       "value": "test-admin"
