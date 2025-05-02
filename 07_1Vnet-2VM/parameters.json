@@ -6,7 +6,7 @@
       "value": "japaneast"
     },
     "VnetAtype": {
-      "value": "Client"
+      "value": "EXT"
     },
     "vnetAAddressPrefix": {
       "value": "10.1.0.0/16"
