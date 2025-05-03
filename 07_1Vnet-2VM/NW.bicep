@@ -4,7 +4,7 @@ param vnetAddressPrefix string
 param subnetName string
 param subnetAddressPrefix string
 param nsgName string
-param bastionName string = 'bastionDev'
+param bastionName string = 'BastionDev'
 resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
   name: vnetName
   location: location

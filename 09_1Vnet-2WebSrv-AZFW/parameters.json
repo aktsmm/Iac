@@ -6,7 +6,7 @@
       "value": "Vnet-AzFW"
     },
     "subnetName": {
-      "value": "mySubnet"
+      "value": "IntSubnet"
     },
     "firewallSubnetName": {
       "value": "AzureFirewallSubnet"
@@ -27,7 +27,7 @@
       "value": "INT-Ubu"
     },
     "WebSrvWinName": {
-      "value": "UNT-Win"
+      "value": "INT-Win"
     },
     "adminUsername": {
       "value": "test-admin"
@@ -39,7 +39,7 @@
       "value": "firewallPublicIP"
     },
     "bastionName": {
-      "value": "Bastion-Dev"
+      "value": "BastionDev"
     },
     "bastionPublicIPName": {
       "value": "bastionPublicIP"

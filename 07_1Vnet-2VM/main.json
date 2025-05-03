@@ -109,7 +109,7 @@
             },
             "bastionName": {
               "type": "string",
-              "defaultValue": "bastionDev"
+              "defaultValue": "BastionDev"
             }
           },
           "resources": [
