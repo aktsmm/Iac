@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "japaneast"
+    },
+    "vnetName": {
+      "value": "vnet-hub"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.10.0.0/16"
+    },
+    "subnetName": {
+      "value": "subnet-main"
+    },
+    "subnetAddressPrefix": {
+      "value": "10.10.1.0/24"
+    },
+    "bastionSubnetAddressPrefix": {
+      "value": "10.10.255.0/27"
+    },
+    "vm1Name": {
+      "value": "dnn-ws01"
+    },
+    "vm2Name": {
+      "value": "dnn-ws02"
+    },
+    "adVmName": {
+      "value": "ad01"
+    },
+    "vmSize": {
+      "value": "Standard_B2s"
+    },
+    "availabilityZone": {
+      "value": "1"
+    },
+    "adminUsername": {
+      "value": "test-admin"
+    },
+    "adminPassword": {
+      "value": "P@ssw0rd!"
+    },
+    "bastionName": {
+      "value": "devBastion"
+    },
+    "bastionPipName": {
+      "value": "bastion-pip"
+    },
+    "sharedDiskSizeGB": {
+      "value": 128
+    }
+  }
+}
