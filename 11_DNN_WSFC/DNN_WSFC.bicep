@@ -67,7 +67,7 @@ resource subnetNsg 'Microsoft.Network/networkSecurityGroups@2023-04-01' = {
           direction: 'Inbound'
           access: 'Allow'
           protocol: 'Tcp'
-          sourceAddressPrefix: '128.0.0.0/1'
+          sourceAddressPrefix: '0.0.0.0/1'
           sourcePortRange: '*'
           destinationAddressPrefix: '*'
           destinationPortRange: '3389'
